@@ -1,0 +1,64 @@
+name: football_live
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^4.0.0
+  permission_handler: ^10.0.0
+  get: ^4.7.2
+  fluttertoast: ^8.2.12
+  flutter_screenutil: ^5.9.3
+  google_mobile_ads: ^6.0.0
+  get_storage: ^2.1.1
+  country_codes: ^3.3.0
+  url_launcher: ^6.3.1
+  flutter_svg:
+  lottie:
+  facebook_app_events: ^0.20.1
+  cached_network_image: ^3.2.1
+  shimmer: ^3.0.0
+  in_app_review: ^2.0.10
+  uuid: ^4.5.1
+  http: ^0.13.6
+  webview_flutter: ^4.0.0
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/png/
+    - assets/lottie/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Poppins-Thin.ttf
+          weight: 100
+
