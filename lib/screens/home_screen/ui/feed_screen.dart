@@ -16,6 +16,7 @@ class FeedScreen extends GetView<HomeScreenController> {
       () => controller.isLoading.value
           ? const Center(child: CircularProgressIndicator())
           : ListView.separated(
+            
               padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
               itemBuilder: (context, index) {
                 final item = controller.feedList[index];
