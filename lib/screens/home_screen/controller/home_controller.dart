@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:football_live/models/feed_model.dart';
 import 'package:football_live/models/news_model.dart';
+import 'package:football_live/models/standing_model.dart';
+import 'package:football_live/models/team_details_model.dart';
 import 'package:football_live/service/api/api_ids.dart';
 import 'package:football_live/service/api/api_services.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,8 @@ class HomeScreenController extends GetxController
   RxList<FeedCountry> feedList = <FeedCountry>[].obs;
   RxList<LeagueScheduleModel> leagueSchedule = <LeagueScheduleModel>[].obs;
   RxBool isLoading = false.obs;
+  Rxn<StandingModel> standing = Rxn<StandingModel>();
+  Rxn<TeamDetailsModel> teamDetails = Rxn<TeamDetailsModel>();
 
   Future<void> fetchLeagueSchedule(String leagueKey) async {
     isLoading.value = true;
@@ -70,7 +74,7 @@ class HomeScreenController extends GetxController
     isLoading.value = true;
     await ApiService.getRequest(
       ApiIds.getNews,
-      baseUrl: ApiIds.baseUrl,
+    baseUrl: ApiIds.baseUrl,
       onSuccess: (data) {
         try {
           newsList.value = NewsModel.fromJson(data).items;
@@ -122,6 +126,47 @@ class HomeScreenController extends GetxController
     }
   }
 
+  void getStanding(int league, int index) async {
+    isLoading.value = true;
+    await ApiService.getRequest(
+      ApiIds.getStanding(feedList[index].leagues[league].key ?? ''),
+      baseUrl: ApiIds.baseUrl,
+      onSuccess: (data) {
+        try {
+          debugPrint('standing: $data');
+          standing.value = StandingModel.fromJson(data);
+          isLoading.value = false;
+        } catch (e, st) {
+          isLoading.value = false;
+          debugPrint('Error: $e, $st');
+        }
+      },
+      onFail: (error) {
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void getTeamDetails(String teamIdGs) async {
+    isLoading.value = true;
+    await ApiService.getRequest(
+      ApiIds.getTeamDetails(teamIdGs),
+      baseUrl: ApiIds.baseUrl,
+      onSuccess: (data) {
+        try {
+          debugPrint('teamDetails: $data');
+          teamDetails.value = TeamDetailsModel.fromJson(data);
+          isLoading.value = false;
+        } catch (e, st) {
+          isLoading.value = false;
+          debugPrint('Error: $e, $st');
+        }
+      },
+      onFail: (error) {
+        isLoading.value = false;
+      },
+    );
+  }
   @override
   void onInit() {
     getFeed();

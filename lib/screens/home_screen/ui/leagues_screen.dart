@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/common/common_image.dart';
 import 'package:football_live/routes/app_routes.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
 
-class FeedScreen extends GetView<HomeScreenController> {
-  const FeedScreen({super.key});
+class LeaguesScreen extends GetView<HomeScreenController> {
+  const LeaguesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => controller.isLoading.value
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.separated(
+    final feedIndex = Get.arguments['index'] ?? 0;
+    return Scaffold(
+      backgroundColor: AppColors.bgColor,
+      appBar: CommonAppBar(title: controller.feedList[feedIndex].country ?? ''),
+      body: controller.feedList[feedIndex].leagues.isNotEmpty
+          ? ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
               itemBuilder: (context, index) {
-                final item = controller.feedList[index];
+                final item = controller.feedList[feedIndex].leagues[index];
                 return InkWell(
                   onTap: () {
                     Get.toNamed(
-                      AppRoutes.leaguesScreen,
-                      arguments: {'index': index},
+                      AppRoutes.leaguesDetailsScreen,
+                      arguments: {'index': feedIndex, 'leagueIndex': index},
                     );
                   },
                   child: Container(
@@ -57,17 +60,19 @@ class FeedScreen extends GetView<HomeScreenController> {
                             ),
                             child: CommonNetworkImage(
                               imageUrl:
-                                  'https://static.holoduke.nl/footapi/images/flags/${(item.country ?? '').replaceAll(' ', '-').toLowerCase()}.png',
+                                  'https://static.holoduke.nl/footapi/images/flags/${(controller.feedList[feedIndex].country ?? '').replaceAll(' ', '-').toLowerCase()}.png',
                               fit: BoxFit.contain,
                             ),
                           ),
                         ),
                         SizedBox(width: 10.w),
-                        Text(
-                          item.country ?? '',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
+                        Expanded(
+                          child: Text(
+                            item.leagueName ?? '',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ],
@@ -78,7 +83,13 @@ class FeedScreen extends GetView<HomeScreenController> {
               separatorBuilder: (context, index) {
                 return SizedBox(height: 20.h);
               },
-              itemCount: controller.feedList.length,
+              itemCount: controller.feedList[feedIndex].leagues.length,
+            )
+          : Center(
+              child: Text(
+                'No leagues found',
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+              ),
             ),
     );
   }
