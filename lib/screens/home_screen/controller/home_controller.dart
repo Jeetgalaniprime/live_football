@@ -38,24 +38,32 @@ class HomeScreenController extends GetxController {
       onSuccess: (data) {
         try {
           feedList.value = FeedModel.fromJson(data).countries;
-          feedList.insert(0, FeedCountry(country: "Eurocups"));
-          feedList.insert(1, FeedCountry(country: "World Cup"));
-          feedList.insert(2, FeedCountry(country: "World Cup Qualifications"));
-          feedList.insert(3, FeedCountry(country: "Spain"));
-          feedList.insert(4, FeedCountry(country: "England"));
-          feedList.insert(5, FeedCountry(country: "Germany"));
-          feedList.insert(6, FeedCountry(country: "Italy"));
-          feedList.insert(7, FeedCountry(country: "France"));
+          replaceCountry(0, "Eurocups");
+          replaceCountry(1, "World Cup");
+          replaceCountry(2, "World Cup Qualifications");
+          replaceCountry(3, "Spain");
+          replaceCountry(4, "England");
+          replaceCountry(5, "Germany");
+          replaceCountry(6, "Italy");
+          replaceCountry(7, "France");
           isLoading.value = false;
-        } catch (e) {
+        } catch (e, st) {
           isLoading.value = false;
-          debugPrint('Error: $e');
+          debugPrint('Error: $e, $st');
         }
       },
       onFail: (error) {
         isLoading.value = false;
       },
     );
+  }
+
+  void replaceCountry(int index, String countryName) {
+    final i2 = feedList.indexWhere((element) => element.country == countryName);
+    if (i2 != -1) {
+      feedList.insert(index, feedList[i2]);
+      feedList.removeAt(i2 >= index ? i2 + 1 : i2);
+    }
   }
 
   @override
