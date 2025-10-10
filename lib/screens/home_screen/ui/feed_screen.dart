@@ -7,8 +7,8 @@ import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
 
 
-class FootballScreen extends GetView<HomeScreenController> {
-  const FootballScreen({super.key});
+class FeedScreen extends GetView<HomeScreenController> {
+  const FeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

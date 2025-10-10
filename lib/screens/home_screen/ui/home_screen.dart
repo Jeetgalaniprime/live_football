@@ -33,7 +33,7 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
         body: TabBarView(
           children: const [
-            FootballScreen(),
+            FeedScreen(),
             NewsScreen(),
             Center(child: Text('Live Score Content')),
           ],
