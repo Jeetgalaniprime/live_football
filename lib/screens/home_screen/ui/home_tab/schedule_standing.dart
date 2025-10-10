@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
 import 'package:football_live/screens/home_screen/ui/home_tab/schedule_screen.dart';
+import 'package:football_live/screens/home_screen/ui/standing_screen.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,6 @@ class ScheduleStandingScreen extends GetView<HomeScreenController> {
   @override
   Widget build(BuildContext context) {
     final leagueKey = Get.arguments['league_key'];
-    print("leagueKey :: $leagueKey");
     return Scaffold(
       appBar: CommonAppBar(
         title: "Leagues",
@@ -44,7 +44,7 @@ class ScheduleStandingScreen extends GetView<HomeScreenController> {
               }
             },
           ),
-          SizedBox(),
+          StandingScreen(),
         ],
       ),
     );

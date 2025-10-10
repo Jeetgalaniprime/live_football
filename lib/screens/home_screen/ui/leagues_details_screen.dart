@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
+import 'package:football_live/screens/home_screen/ui/home_tab/schedule_screen.dart';
 import 'package:football_live/screens/home_screen/ui/standing_screen.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
@@ -17,13 +20,20 @@ class _LeaguesDetailsScreenState extends State<LeaguesDetailsScreen> {
 
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.fetchLeagueSchedule(
+        controller
+            .feedList[Get.arguments['index']]
+            .leagues[Get.arguments['leagueIndex']]
+            .key
+            .toString(),
+      );
       controller.getStanding(
         Get.arguments['index'],
         Get.arguments['leagueIndex'],
       );
     });
+    super.initState();
   }
 
   @override
@@ -48,8 +58,8 @@ class _LeaguesDetailsScreenState extends State<LeaguesDetailsScreen> {
           ),
         ),
         body: TabBarView(
-          children: const [
-            Center(child: Text('Schedule Content')),
+          children: [
+            ScheduleScreen(),
             StandingScreen(),
           ],
         ),

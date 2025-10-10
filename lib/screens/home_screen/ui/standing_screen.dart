@@ -15,6 +15,7 @@ class StandingScreen extends StatefulWidget {
 
 class StandingScreenState extends State<StandingScreen> {
   final controller = Get.find<HomeScreenController>();
+  
 
   @override
   Widget build(BuildContext context) {

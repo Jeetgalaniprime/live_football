@@ -5,6 +5,7 @@ import 'package:football_live/screens/home_screen/ui/home_tab/match_details_scre
     show MatchDetailsScreen;
 import 'package:football_live/screens/home_screen/ui/home_tab/schedule_standing.dart';
 import 'package:football_live/screens/home_screen/ui/leagues_details_screen.dart';
+import 'package:football_live/screens/home_screen/ui/leagues_screen.dart';
 import 'package:football_live/screens/home_screen/ui/team_details_screen.dart';
 import 'package:football_live/screens/news_screen/news_details.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
