@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:football_live/models/feed_model.dart';
 import 'package:football_live/models/news_model.dart';
@@ -5,10 +7,64 @@ import 'package:football_live/service/api/api_ids.dart';
 import 'package:football_live/service/api/api_services.dart';
 import 'package:get/get.dart';
 
-class HomeScreenController extends GetxController {
+import '../../../models/league_schedule_model.dart';
+
+class HomeScreenController extends GetxController
+    with GetTickerProviderStateMixin {
+  TabController? tabController;
+
   RxList<News> newsList = <News>[].obs;
   RxList<FeedCountry> feedList = <FeedCountry>[].obs;
+  RxList<LeagueScheduleModel> leagueSchedule = <LeagueScheduleModel>[].obs;
   RxBool isLoading = false.obs;
+
+  Future<void> fetchLeagueSchedule(String leagueKey) async {
+    isLoading.value = true;
+
+    await ApiService.getRequest(
+      ApiIds.getleagueSchedule(leagueKey),
+      baseUrl: ApiIds.baseUrl1,
+      onSuccess: (data) {
+        try {
+          if (data is List) {
+            print("✅ API call success :: got ${data.length} items");
+            print("data type :: ${data.runtimeType}");
+
+            // Clear old list before adding new data
+            leagueSchedule.clear();
+
+            for (var item in data) {
+              if (item is Map<String, dynamic>) {
+                leagueSchedule.add(LeagueScheduleModel.fromJson(item));
+              } else if (item is Map) {
+                // convert dynamic map to Map<String, dynamic>
+                leagueSchedule.add(
+                  LeagueScheduleModel.fromJson(Map<String, dynamic>.from(item)),
+                );
+              }
+            }
+
+            print("✅ Parsed ${leagueSchedule.length} league schedules");
+            print(
+              "✅ Parsed ${leagueSchedule.first.localteam} league schedules",
+            );
+          } else {
+            debugPrint('⚠️ Expected list, got: ${data.runtimeType}');
+            leagueSchedule.clear();
+          }
+        } catch (e, stack) {
+          debugPrint("❌ Error parsing league schedule: $e\n$stack");
+          leagueSchedule.clear();
+        } finally {
+          isLoading.value = false;
+        }
+      },
+      onFail: (error) {
+        isLoading.value = false;
+        debugPrint('❌ API Error: $error');
+      },
+    );
+  }
 
   void getNews() async {
     isLoading.value = true;
@@ -70,6 +126,7 @@ class HomeScreenController extends GetxController {
   void onInit() {
     getFeed();
     getNews();
+    tabController = TabController(length: 2, vsync: this);
     super.onInit();
   }
 }

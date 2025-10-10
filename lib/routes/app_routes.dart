@@ -5,4 +5,6 @@ class AppRoutes {
   static const homeScreen = '/homeScreen';
   static const newsDetails = '/newsDetails';
   static const leaguesScreen = '/leaguesScreen';
+  static const scheduleStandingScreen = '/scheduleStandingScreen';
+  static const matchDetailsScreen = '/matchDetailsScreen';
 }

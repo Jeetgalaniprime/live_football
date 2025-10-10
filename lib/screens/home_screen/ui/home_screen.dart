@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
-import 'package:football_live/screens/home_screen/ui/feed_screen.dart';
+import 'package:football_live/screens/home_screen/ui/home_tab/feed_screen.dart';
 import 'package:football_live/screens/news_screen/news_screen.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
