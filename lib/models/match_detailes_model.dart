@@ -69,6 +69,8 @@ class MatchDetailsModel {
   final double? inlineAdWidthRatio;
   final int? inlineAdPosition;
   final int? inlineAdFrequencyChance;
+  final String? addedTimePeriod1;
+  final String? addedTimePeriod2;
 
   MatchDetailsModel({
     this.id,
@@ -129,6 +131,8 @@ class MatchDetailsModel {
     this.inlineAdWidthRatio,
     this.inlineAdPosition,
     this.inlineAdFrequencyChance,
+    this.addedTimePeriod1,
+    this.addedTimePeriod2,
   });
 
   factory MatchDetailsModel.fromJson(Map<String, dynamic> json) =>
@@ -213,6 +217,8 @@ class MatchDetailsModel {
         inlineAdWidthRatio: json["inline_ad_width_ratio"]?.toDouble(),
         inlineAdPosition: json["inline_ad_position"],
         inlineAdFrequencyChance: json["inline_ad_frequency_chance"],
+        addedTimePeriod1: json["addedTime_period1"],
+        addedTimePeriod2: json["addedTime_period2"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -282,6 +288,8 @@ class MatchDetailsModel {
     "inline_ad_width_ratio": inlineAdWidthRatio,
     "inline_ad_position": inlineAdPosition,
     "inline_ad_frequency_chance": inlineAdFrequencyChance,
+    "addedTime_period1": addedTimePeriod1,
+    "addedTime_period2": addedTimePeriod2,
   };
 }
 
@@ -302,6 +310,7 @@ class Commentaries {
   final String? visitorgoalkeepernumbercolor;
   final String? visitorgoalkeeperbordercolor;
   final List<CommentaryEvent>? events;
+  final CommentaryStats? stats;
   final Teams? teams;
   final List<dynamic>? commentaries;
 
@@ -322,6 +331,7 @@ class Commentaries {
     this.visitorgoalkeepernumbercolor,
     this.visitorgoalkeeperbordercolor,
     this.events,
+    this.stats,
     this.teams,
     this.commentaries,
   });
@@ -353,6 +363,9 @@ class Commentaries {
         : List<CommentaryEvent>.from(
             json["events"]!.map((x) => CommentaryEvent.fromJson(x)),
           ),
+    stats: json["stats"] == null
+        ? null
+        : CommentaryStats.fromJson(json["stats"]),
     teams: json["teams"] == null ? null : Teams.fromJson(json["teams"]),
     commentaries: json["commentaries"] == null
         ? []
@@ -378,6 +391,7 @@ class Commentaries {
     "events": events == null
         ? []
         : List<dynamic>.from(events!.map((x) => x.toJson())),
+    "stats": stats?.toJson(),
     "teams": teams?.toJson(),
     "commentaries": commentaries == null
         ? []
@@ -435,27 +449,84 @@ class CommentaryEvent {
 }
 
 class Playerstats {
-  final List<dynamic>? localteam;
-  final List<dynamic>? visitorteam;
+  final List<PlayerStatDetail>? localteam;
+  final List<PlayerStatDetail>? visitorteam;
 
   Playerstats({this.localteam, this.visitorteam});
 
   factory Playerstats.fromJson(Map<String, dynamic> json) => Playerstats(
     localteam: json["localteam"] == null
         ? []
-        : List<dynamic>.from(json["localteam"]!.map((x) => x)),
+        : List<PlayerStatDetail>.from(
+            json["localteam"]!.map((x) => PlayerStatDetail.fromJson(x)),
+          ),
     visitorteam: json["visitorteam"] == null
         ? []
-        : List<dynamic>.from(json["visitorteam"]!.map((x) => x)),
+        : List<PlayerStatDetail>.from(
+            json["visitorteam"]!.map((x) => PlayerStatDetail.fromJson(x)),
+          ),
   );
 
   Map<String, dynamic> toJson() => {
     "localteam": localteam == null
         ? []
-        : List<dynamic>.from(localteam!.map((x) => x)),
+        : List<dynamic>.from(localteam!.map((x) => x.toJson())),
     "visitorteam": visitorteam == null
         ? []
-        : List<dynamic>.from(visitorteam!.map((x) => x)),
+        : List<dynamic>.from(visitorteam!.map((x) => x.toJson())),
+  };
+}
+
+class PlayerStatDetail {
+  final String? id;
+  final String? num;
+  final String? goals;
+  final String? penWon;
+  final String? rating;
+  final String? yellowcards;
+  final String? redcards;
+  final String? isSubst;
+  final String? isCaptain;
+  final String? minutesPlayed;
+
+  PlayerStatDetail({
+    this.id,
+    this.num,
+    this.goals,
+    this.penWon,
+    this.rating,
+    this.yellowcards,
+    this.redcards,
+    this.isSubst,
+    this.isCaptain,
+    this.minutesPlayed,
+  });
+
+  factory PlayerStatDetail.fromJson(Map<String, dynamic> json) =>
+      PlayerStatDetail(
+        id: json["id"],
+        num: json["num"],
+        goals: json["goals"],
+        penWon: json["pen_won"],
+        rating: json["rating"],
+        yellowcards: json["yellowcards"],
+        redcards: json["redcards"],
+        isSubst: json["isSubst"],
+        isCaptain: json["isCaptain"],
+        minutesPlayed: json["minutes_played"],
+      );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "num": num,
+    "goals": goals,
+    "pen_won": penWon,
+    "rating": rating,
+    "yellowcards": yellowcards,
+    "redcards": redcards,
+    "isSubst": isSubst,
+    "isCaptain": isCaptain,
+    "minutes_played": minutesPlayed,
   };
 }
 
@@ -584,6 +655,100 @@ class TeamSubstitution {
   };
 }
 
+class CommentaryStats {
+  final TeamStats? localteam;
+  final TeamStats? visitorteam;
+
+  CommentaryStats({this.localteam, this.visitorteam});
+
+  factory CommentaryStats.fromJson(Map<String, dynamic> json) =>
+      CommentaryStats(
+        localteam: json["localteam"] == null
+            ? null
+            : TeamStats.fromJson(json["localteam"]),
+        visitorteam: json["visitorteam"] == null
+            ? null
+            : TeamStats.fromJson(json["visitorteam"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+    "localteam": localteam?.toJson(),
+    "visitorteam": visitorteam?.toJson(),
+  };
+}
+
+class TeamStats {
+  final String? shotstotal;
+  final String? shotsgoal;
+  final String? shotsgoalmissed;
+  final String? shotsgoalblocked;
+  final String? shotsgoalinsidebox;
+  final String? shotsgoaloutsidebox;
+  final String? fouls;
+  final String? corners;
+  final String? offsides;
+  final String? possestiontime;
+  final String? yellowcards;
+  final String? redcards;
+  final String? saves;
+  final String? passestotal;
+  final String? passesaccurate;
+
+  TeamStats({
+    this.shotstotal,
+    this.shotsgoal,
+    this.shotsgoalmissed,
+    this.shotsgoalblocked,
+    this.shotsgoalinsidebox,
+    this.shotsgoaloutsidebox,
+    this.fouls,
+    this.corners,
+    this.offsides,
+    this.possestiontime,
+    this.yellowcards,
+    this.redcards,
+    this.saves,
+    this.passestotal,
+    this.passesaccurate,
+  });
+
+  factory TeamStats.fromJson(Map<String, dynamic> json) => TeamStats(
+    shotstotal: json["shotstotal"],
+    shotsgoal: json["shotsgoal"],
+    shotsgoalmissed: json["shotsgoalmissed"],
+    shotsgoalblocked: json["shotsgoalblocked"],
+    shotsgoalinsidebox: json["shotsgoalinsidebox"],
+    shotsgoaloutsidebox: json["shotsgoaloutsidebox"],
+    fouls: json["fouls"],
+    corners: json["corners"],
+    offsides: json["offsides"],
+    possestiontime: json["possestiontime"],
+    yellowcards: json["yellowcards"],
+    redcards: json["redcards"],
+    saves: json["saves"],
+    passestotal: json["passestotal"],
+    passesaccurate: json["passesaccurate"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "shotstotal": shotstotal,
+    "shotsgoal": shotsgoal,
+    "shotsgoalmissed": shotsgoalmissed,
+    "shotsgoalblocked": shotsgoalblocked,
+    "shotsgoalinsidebox": shotsgoalinsidebox,
+    "shotsgoaloutsidebox": shotsgoaloutsidebox,
+    "fouls": fouls,
+    "corners": corners,
+    "offsides": offsides,
+    "possestiontime": possestiontime,
+    "yellowcards": yellowcards,
+    "redcards": redcards,
+    "saves": saves,
+    "passestotal": passestotal,
+    "passesaccurate": passesaccurate,
+  };
+}
+
 class Teams {
   final List<TeamPlayer>? localteam;
   final List<TeamPlayer>? visitorteam;
@@ -691,6 +856,7 @@ class Event {
   final String? playerId;
   final String? assist;
   final String? assistId;
+  final String? reason;
 
   Event({
     this.id,
@@ -703,6 +869,7 @@ class Event {
     this.playerId,
     this.assist,
     this.assistId,
+    this.reason,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
@@ -716,6 +883,7 @@ class Event {
     playerId: json["playerId"],
     assist: json["assist"],
     assistId: json["assistId"],
+    reason: json["reason"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -729,6 +897,7 @@ class Event {
     "playerId": playerId,
     "assist": assist,
     "assistId": assistId,
+    "reason": reason,
   };
 }
 
@@ -822,6 +991,8 @@ class ShapeFixture {
   final String? penaltyLocalTeam;
   final String? penaltyVisitorTeam;
   final List<Penalty>? penalties;
+  final String? addedTimePeriod1;
+  final String? addedTimePeriod2;
 
   ShapeFixture({
     this.id,
@@ -861,6 +1032,8 @@ class ShapeFixture {
     this.penaltyLocalTeam,
     this.penaltyVisitorTeam,
     this.penalties,
+    this.addedTimePeriod1,
+    this.addedTimePeriod2,
   });
 
   factory ShapeFixture.fromJson(Map<String, dynamic> json) => ShapeFixture(
@@ -905,6 +1078,8 @@ class ShapeFixture {
         : List<Penalty>.from(
             json["penalties"]!.map((x) => Penalty.fromJson(x)),
           ),
+    addedTimePeriod1: json["addedTime_period1"],
+    addedTimePeriod2: json["addedTime_period2"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -947,6 +1122,8 @@ class ShapeFixture {
     "penalties": penalties == null
         ? []
         : List<dynamic>.from(penalties!.map((x) => x.toJson())),
+    "addedTime_period1": addedTimePeriod1,
+    "addedTime_period2": addedTimePeriod2,
   };
 }
 

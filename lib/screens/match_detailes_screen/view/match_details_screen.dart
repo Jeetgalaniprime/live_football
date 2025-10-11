@@ -145,7 +145,8 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
                     return _MatchInfo();
                   },
                 ),
-                SizedBox(),
+
+                _Lineups(),
               ],
             ),
           ),
@@ -228,7 +229,8 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                   return Row(
                     children: [
                       CommonNetworkImage(
-                        imageUrl: "",
+                        imageUrl:
+                            "http://static.holoduke.nl/footapi/images/playerimages/${data.events?[index].playerId ?? ''}.png",
                         height: 40.w,
                         width: 40.w,
                         borderRadius: 20.r,
@@ -242,18 +244,344 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                       ),
                       SizedBox(width: 10.w),
                       SvgView(AppAssets.football, height: 18.w, width: 18.w),
+                      SizedBox(width: 10.w),
+                      Text(
+                        "${data.events?[index].minute ?? ''}`",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                      Spacer(),
                     ],
-                  );
+                  ).paddingSymmetric(vertical: 5.h);
                 } else if (data.events?[index].team == "visitorteam") {
-                  return Container(
-                    height: 100.h,
-                    width: 100.w,
-                    color: AppColors.blackColor,
-                  );
+                  return Row(
+                    children: [
+                      Spacer(),
+                      Text(
+                        "${data.events?[index].minute ?? ''}`",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                      SizedBox(width: 10.w),
+                      SvgView(AppAssets.football, height: 18.w, width: 18.w),
+                      SizedBox(width: 10.w),
+                      Text(
+                        data.events?[index].player ?? '',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+
+                      CommonNetworkImage(
+                        imageUrl:
+                            "http://static.holoduke.nl/footapi/images/playerimages/${data.events?[index].playerId ?? ''}.png",
+                        height: 40.w,
+                        width: 40.w,
+                        borderRadius: 20.r,
+                      ),
+                    ],
+                  ).paddingSymmetric(vertical: 5.h);
                 } else {
                   return SizedBox();
                 }
               },
+            ),
+
+            SizedBox(height: 10.h, width: commonWidth),
+
+            if (data.commentaries?.stats != null)
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Container(
+                          height: 1.5,
+                          width: commonWidth,
+                          color: AppColors.blackColor,
+                        ),
+                      ),
+                      SizedBox(width: 10.w),
+                      Text(
+                        "STATISTICS",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(width: 10.w),
+                      Flexible(
+                        child: Container(
+                          height: 1.5,
+                          width: commonWidth,
+                          color: AppColors.blackColor,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 10.h, width: commonWidth),
+
+                  Card(
+                    child: Column(
+                      children: List.generate(
+                        data.commentaries?.stats?.localteam
+                                ?.toJson()
+                                .keys
+                                .length ??
+                            0,
+                        (index) {
+                          return Row(
+                            children: [
+                              Text(
+                                data.commentaries?.stats?.localteam
+                                        ?.toJson()
+                                        .values
+                                        .elementAt(index) ??
+                                    '',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              Spacer(),
+                              Text(
+                                data.commentaries?.stats?.localteam
+                                        ?.toJson()
+                                        .keys
+                                        .elementAt(index) ??
+                                    '',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              Spacer(),
+                              Text(
+                                data.commentaries?.stats?.visitorteam
+                                        ?.toJson()
+                                        .values
+                                        .elementAt(index) ??
+                                    '',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                            ],
+                          ).paddingSymmetric(vertical: 5.h);
+                        },
+                      ),
+                    ).paddingSymmetric(horizontal: 10.w, vertical: 10.h),
+                  ),
+                ],
+              ),
+
+            if (data.stats != null)
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Container(
+                          height: 1.5,
+                          width: commonWidth,
+                          color: AppColors.blackColor,
+                        ),
+                      ),
+                      SizedBox(width: 10.w),
+                      Text(
+                        "HEAD 2 HEAD",
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(width: 10.w),
+                      Flexible(
+                        child: Container(
+                          height: 1.5,
+                          width: commonWidth,
+                          color: AppColors.blackColor,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 10.h, width: commonWidth),
+
+                  Card(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              (data.stats?.totalLocalteamWon ?? 0).toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              "WINS",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              (data.stats?.totalVisitorteamWon ?? 0).toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10.h, width: commonWidth),
+                        Row(
+                          children: [
+                            Text(
+                              (data.stats?.totalLocalteamScored ?? 0)
+                                  .toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              "Goals For",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              (data.stats?.totalVisitorteamScored ?? 0)
+                                  .toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ).paddingSymmetric(horizontal: 10.w, vertical: 10.h),
+                  ),
+                ],
+              ),
+          ],
+        ),
+      );
+    });
+  }
+}
+
+class _Lineups extends GetView<MatchDetailesController> {
+  const _Lineups({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      final data = controller.matchDetailesData.value;
+
+      return SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// LOCAL TEAM
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(data.lineups?.localteam?.length ?? 0, (
+                  index,
+                ) {
+                  final player = data.lineups?.localteam?[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    child: Row(
+                      children: [
+                        CommonNetworkImage(
+                          imageUrl:
+                              "http://static.holoduke.nl/footapi/images/playerimages/${player?.id ?? ''}.png",
+                          height: 50.w,
+                          width: 50.w,
+                          borderRadius: 25.w,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(width: 8.w),
+                        Expanded(
+                          child: Text(
+                            player?.name ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ),
+            ),
+
+            SizedBox(width: 10.w),
+
+            /// VISITOR TEAM
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: List.generate(data.lineups?.visitorteam?.length ?? 0, (
+                  index,
+                ) {
+                  final player = data.lineups?.visitorteam?[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            player?.name ?? '',
+                            textAlign: TextAlign.end,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8.w),
+                        CommonNetworkImage(
+                          imageUrl:
+                              "http://static.holoduke.nl/footapi/images/playerimages/${player?.id ?? ''}.png",
+                          height: 50.w,
+                          width: 50.w,
+                          borderRadius: 25.w,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ),
             ),
           ],
         ),
