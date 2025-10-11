@@ -35,23 +35,22 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
       backgroundColor: AppColors.bgColor,
       appBar: CommonAppBar(title: 'Player Details'),
       body: Obx(() {
-        double boxHeight = 25.h;
-        double boxWidth = 25.w;
         final player = controller.player.value;
-        if (player == null) {
-          return CommonLoader();
-        }
+        if (player == null) return CommonLoader();
+
+        final double statCellWidth =  34.w;
+        final double statCellHeight = 34.h;
+        final double seasonCellWidth = 80.w;
 
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
           child: Column(
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Player image
                   CircleAvatar(
-                    radius: 56,
+                    radius: 45,
                     backgroundImage: NetworkImage(
                       'http://static.holoduke.nl/footapi/images/playerimages/${player.id}.png',
                     ),
@@ -64,177 +63,155 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
                       children: [
                         Text(
                           'Age: ${player.age ?? "-"}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Nationality: ${player.nationality ?? "-"}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Birth Place: ${player.birthplace ?? "-"}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Position: ${player.position ?? "-"}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Team: ${player.team ?? "-"}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Weight: ${player.weight ?? "-"}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Height: ${player.height ?? "-"}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20.w),
+              SizedBox(height: 18.h),
+              // Header:
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(width: 90.w),
-                  Image.asset(
+                  SizedBox(width: seasonCellWidth), // matches season cell
+                  ...[
                     AppAssets.footballImage,
-                    height: boxHeight,
-                    width: boxWidth,
-                  ),
-                  Image.asset(
                     AppAssets.footballScoreYellowCardImage,
-                    height: boxHeight,
-                    width: boxWidth,
-                  ),
-                  Image.asset(
                     AppAssets.redCardImage,
-                    height: boxHeight,
-                    width: boxWidth,
-                  ),
-                  Image.asset(
                     AppAssets.footballScoreTimeClockImage,
-                    height: boxHeight,
-                    width: boxWidth,
-                  ),
-                  Image.asset(
                     AppAssets.footballScoreSubInImage,
-                    height: boxHeight,
-                    width: boxWidth,
-                  ),
-                  Image.asset(
                     AppAssets.footballScoreSubOutImage,
-                    height: boxHeight,
-                    width: boxWidth,
-                  ),
-                  Image.asset(
                     AppAssets.lineupsImage,
-                    height: boxHeight,
-                    width: boxWidth,
-                  ),
-                  Image.asset(
                     AppAssets.footballScoreBenchImage,
-                    height: boxHeight,
-                    width: boxWidth,
+                  ].map(
+                    (icon) => Container(
+                      width: statCellWidth,
+                      height: statCellHeight,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(right: 2.w),
+                      child: Image.asset(
+                        icon,
+                        width: 20,
+                        height: 20,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const Divider(),
               Expanded(
-                child: ListView.builder(
+                child: ListView.separated(
                   itemCount: player.statistics.length,
+                  separatorBuilder: (_, __) => Divider(),
                   itemBuilder: (context, index) {
                     final row = player.statistics[index];
                     return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  row.season ?? '',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                            // Season & logo cell (match header width)
+                            SizedBox(
+                              width: seasonCellWidth,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    row.season ?? '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                CommonNetworkImage(
-                                  imageUrl:
-                                      'http://static.holoduke.nl/footapi/images/teams_gs/${row.teamid}.png',
-                                  height: 50.w,
-                                  width: 50.w,
-                                ),
-                                Text(
-                                  '${row.name} ${row.league}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                  CommonNetworkImage(
+                                    imageUrl:
+                                        'http://static.holoduke.nl/footapi/images/teams_gs/${row.teamid}.png',
+                                    height: 36,
+                                    width: 36,
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            SizedBox(width: 10.w),
-                            Text(
+                            // Stat cells (must match icon header)
+                            _statCell(
                               '${row.goals}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              statCellWidth,
+                              statCellHeight,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
+                            _statCell(
                               '${row.yellowcards}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              statCellWidth,
+                              statCellHeight,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
+                            _statCell(
                               '${row.redcards}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              statCellWidth,
+                              statCellHeight,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
+                            _statCell(
                               '${row.minutes}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              statCellWidth,
+                              statCellHeight,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
+                            _statCell(
                               '${row.substituteIn}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              statCellWidth,
+                              statCellHeight,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
+                            _statCell(
                               '${row.substituteOut}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              statCellWidth,
+                              statCellHeight,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
+                            _statCell(
                               '${row.lineups}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              statCellWidth,
+                              statCellHeight,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
+                            _statCell(
                               '${row.substitutesOnBench}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                              statCellWidth,
+                              statCellHeight,
                             ),
                           ],
                         ),
-                        const Divider(),
+                        // Competition/club label
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2.0),
+                          child: Text(
+                            '${row.name ?? ""} ${row.league ?? ""}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
                       ],
                     );
                   },
@@ -247,10 +224,15 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
     );
   }
 
-  Widget _statIconText(IconData ic, String label) => Column(
-    children: [
-      Icon(ic, size: 18, color: Colors.black54),
-      Text(label, style: const TextStyle(fontSize: 11, color: Colors.black87)),
-    ],
+  Widget _statCell(String text, double width, double height) => Container(
+    width: width,
+    height: height,
+    alignment: Alignment.center,
+    margin: EdgeInsets.only(right: 2.w),
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(fontWeight: FontWeight.bold),
+    ),
   );
 }

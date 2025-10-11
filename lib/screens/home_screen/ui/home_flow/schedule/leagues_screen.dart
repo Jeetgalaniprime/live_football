@@ -12,7 +12,13 @@ class LeaguesScreen extends GetView<HomeScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    final feedIndex = (Get.arguments['index'] ?? 0) as int;
+    final dynamic argIndex = Get.arguments != null
+        ? Get.arguments['index']
+        : null;
+    final int feedIndex = argIndex is int
+        ? argIndex
+        : int.tryParse(argIndex?.toString() ?? '0') ?? 0;
+
     return Scaffold(
       backgroundColor: AppColors.bgColor,
       appBar: CommonAppBar(title: controller.feedList[feedIndex].country ?? ''),

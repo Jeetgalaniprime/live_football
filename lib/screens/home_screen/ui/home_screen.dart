@@ -17,7 +17,6 @@ class HomeScreen extends GetView<HomeScreenController> {
         backgroundColor: AppColors.bgColor,
         appBar: CommonAppBar(
           title: 'Live Football',
-          showBackButton: false,
           backgroundColor: AppColors.primaryColor,
           elevation: 0,
           bottom: TabBar(
