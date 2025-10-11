@@ -1,9 +1,12 @@
 import 'package:football_live/screens/home_screen/bindings/home_binding.dart';
-import 'package:football_live/screens/home_screen/ui/home_screen.dart';
-import 'package:football_live/screens/home_screen/ui/home_flow/schedule/leagues_details_screen.dart';
 import 'package:football_live/screens/home_screen/ui/home_flow/schedule/leagues_screen.dart';
 import 'package:football_live/screens/home_screen/ui/home_flow/standing/team_details_screen.dart';
-import 'package:football_live/screens/home_screen/ui/home_flow/match_details_screen.dart';
+import 'package:football_live/screens/home_screen/ui/home_screen.dart';
+import 'package:football_live/screens/match_detailes_screen/bindings/match_detailes_binding.dart';
+import 'package:football_live/screens/match_detailes_screen/view/match_details_screen.dart'
+    show MatchDetailsScreen;
+import 'package:football_live/screens/home_screen/ui/leagues_details_screen.dart';
+
 import 'package:football_live/screens/news_screen/news_details.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../routes/app_routes.dart';
@@ -22,8 +25,15 @@ class AppPages {
     GetPage(
       name: AppRoutes.matchDetailsScreen,
       page: () => const MatchDetailsScreen(),
+      binding: MatchDetailesBinding(),
     ),
-    GetPage(name: AppRoutes.leaguesDetailsScreen, page: () => const LeaguesDetailsScreen()),
-    GetPage(name: AppRoutes.teamDetailsScreen, page: () => const TeamDetailsScreen()),
+    GetPage(
+      name: AppRoutes.leaguesDetailsScreen,
+      page: () => const LeaguesDetailsScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.teamDetailsScreen,
+      page: () => const TeamDetailsScreen(),
+    ),
   ];
 }
