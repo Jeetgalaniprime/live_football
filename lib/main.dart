@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
             // theme: ThemeData(fontFamily: 'IBMPlexSans'),
             getPages: AppPages.appPages,
             debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.homeScreen,
+            initialRoute: AppRoutes.mainScreen,
           ),
         );
       },

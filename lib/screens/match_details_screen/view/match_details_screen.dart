@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/common/common_image.dart';
 import 'package:football_live/routes/app_routes.dart';
-import 'package:football_live/screens/match_detailes_screen/controller/match_detailes_controller.dart';
+import 'package:football_live/screens/match_details_screen/controller/match_detailes_controller.dart';
 import 'package:football_live/utils/app_assets.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:football_live/utils/common_widget.dart';
