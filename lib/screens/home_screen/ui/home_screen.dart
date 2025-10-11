@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
 import 'package:football_live/screens/home_screen/ui/home_flow/feed_screen.dart';
+import 'package:football_live/screens/livescore/view/livescore_view.dart';
 import 'package:football_live/screens/news_screen/news_screen.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class HomeScreen extends GetView<HomeScreenController> {
           elevation: 0,
           bottom: TabBar(
             indicatorColor: AppColors.primaryColor,
-            labelColor: AppColors.blackColor,
+            labelColor: AppColors.whiteColor,
             unselectedLabelColor: AppColors.greyColor,
             tabs: const [
               Tab(text: 'Home'),
@@ -32,11 +33,7 @@ class HomeScreen extends GetView<HomeScreenController> {
           ),
         ),
         body: TabBarView(
-          children: const [
-            FeedScreen(),
-            NewsScreen(),
-            Center(child: Text('Live Score Content')),
-          ],
+          children: const [FeedScreen(), NewsScreen(), LivescoreView()],
         ),
       ),
     );

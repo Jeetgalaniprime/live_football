@@ -8,6 +8,7 @@ class ApiIds {
 
   static String getNews = 'news/US.json';
   static String getFeed = 'feed_appstart.json';
+  static String getLivenow = 'feed_livenow.json';
 
   static String getleagueSchedule(String leagueKey) =>
       '${leagueKey}_small.json';
@@ -15,4 +16,5 @@ class ApiIds {
   static String getMatchDetails(String matchId) => '$matchId.json';
   static String getStanding(String country) => 'tables/$country.json';
   static String getTeamDetails(String teamIdGs) => 'team_gs/$teamIdGs.json';
+  static String getPlayer(String playerId) => 'players/$playerId.json';
 }

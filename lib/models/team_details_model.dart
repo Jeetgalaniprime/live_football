@@ -1,9 +1,4 @@
-// To parse this JSON data, do
-//
-//     final teamDetailsModel = teamDetailsModelFromJson(jsonString);
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 TeamDetailsModel teamDetailsModelFromJson(String str) =>
@@ -15,7 +10,7 @@ String teamDetailsModelToJson(TeamDetailsModel data) =>
 class TeamDetailsModel {
   final String? idGs;
   final String? teamname;
-  final Country? country;
+  final String? country;
   final String? venuecity;
   final String? venue;
   final String? venueid;
@@ -80,7 +75,7 @@ class TeamDetailsModel {
       return TeamDetailsModel(
         idGs: json["id_gs"],
         teamname: json["teamname"],
-        country: countryValues.map[json["country"]],
+        country: json["country"],
         venuecity: json["venuecity"],
         venue: json["venue"],
         venueid: json["venueid"],
@@ -141,7 +136,7 @@ class TeamDetailsModel {
   Map<String, dynamic> toJson() => {
     "id_gs": idGs,
     "teamname": teamname,
-    "country": countryValues.reverse[country],
+    "country": country,
     "venuecity": venuecity,
     "venue": venue,
     "venueid": venueid,
@@ -185,17 +180,10 @@ class TeamDetailsModel {
   };
 }
 
-enum Country { AUSTRIA, EUROCUPS }
-
-final countryValues = EnumValues({
-  "Austria": Country.AUSTRIA,
-  "Eurocups": Country.EUROCUPS,
-});
-
 class Fixture {
   final String? id;
   final String? time;
-  final FixtureStatus? status;
+  final String? status;
   final String? gsVisitorteamid;
   final String? gsLocalteamid;
   final String? localteamid;
@@ -207,10 +195,10 @@ class Fixture {
   final String? localteam;
   final String? visitorteam;
   final String? leagueid;
-  final LeaguenameEnum? leaguename;
-  final Country? filegroup;
+  final String? leaguename;
+  final String? filegroup;
   final String? stageId;
-  final LeagueKey? leagueKey;
+  final String? leagueKey;
   final int? hi;
   final int? hasOdd;
   final String? localteamshape;
@@ -226,7 +214,7 @@ class Fixture {
   final int? visitorteamrc;
   final int? isEt;
   final String? gsLeaguename;
-  final Country? gsFilegroup;
+  final String? gsFilegroup;
 
   Fixture({
     this.id,
@@ -268,7 +256,7 @@ class Fixture {
   factory Fixture.fromJson(Map<String, dynamic> json) => Fixture(
     id: json["id"],
     time: json["time"],
-    status: fixtureStatusValues.map[json["status"]],
+    status: json["status"],
     gsVisitorteamid: json["gs_visitorteamid"],
     gsLocalteamid: json["gs_localteamid"],
     localteamid: json["localteamid"],
@@ -280,10 +268,10 @@ class Fixture {
     localteam: json["localteam"],
     visitorteam: json["visitorteam"],
     leagueid: json["leagueid"],
-    leaguename: leaguenameEnumValues.map[json["leaguename"]],
-    filegroup: countryValues.map[json["filegroup"]],
+    leaguename: json["leaguename"],
+    filegroup: json["filegroup"],
     stageId: json["stageId"],
-    leagueKey: leagueKeyValues.map[json["leagueKey"]],
+    leagueKey: json["leagueKey"],
     hi: json["hi"],
     hasOdd: json["hasOdd"],
     localteamshape: json["localteamshape"],
@@ -299,13 +287,13 @@ class Fixture {
     visitorteamrc: json["visitorteamrc"],
     isEt: json["isET"],
     gsLeaguename: json["gs_leaguename"],
-    gsFilegroup: countryValues.map[json["gs_filegroup"]],
+    gsFilegroup: json["gs_filegroup"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "time": time,
-    "status": fixtureStatusValues.reverse[status],
+    "status": status,
     "gs_visitorteamid": gsVisitorteamid,
     "gs_localteamid": gsLocalteamid,
     "localteamid": localteamid,
@@ -317,10 +305,10 @@ class Fixture {
     "localteam": localteam,
     "visitorteam": visitorteam,
     "leagueid": leagueid,
-    "leaguename": leaguenameEnumValues.reverse[leaguename],
-    "filegroup": countryValues.reverse[filegroup],
+    "leaguename": leaguename,
+    "filegroup": filegroup,
     "stageId": stageId,
-    "leagueKey": leagueKeyValues.reverse[leagueKey],
+    "leagueKey": leagueKey,
     "hi": hi,
     "hasOdd": hasOdd,
     "localteamshape": localteamshape,
@@ -336,38 +324,9 @@ class Fixture {
     "visitorteamrc": visitorteamrc,
     "isET": isEt,
     "gs_leaguename": gsLeaguename,
-    "gs_filegroup": countryValues.reverse[gsFilegroup],
+    "gs_filegroup": gsFilegroup,
   };
 }
-
-enum LeagueKey {
-  AUSTRIA_BUNDESLIGA,
-  AUSTRIA_CUP,
-  EUROCUPS_UEFA_EUROPA_CONFERENCE_LEAGUE,
-}
-
-final leagueKeyValues = EnumValues({
-  "AustriaBundesliga": LeagueKey.AUSTRIA_BUNDESLIGA,
-  "AustriaCup": LeagueKey.AUSTRIA_CUP,
-  "EurocupsUEFAEuropaConferenceLeague":
-      LeagueKey.EUROCUPS_UEFA_EUROPA_CONFERENCE_LEAGUE,
-});
-
-enum LeaguenameEnum { BUNDESLIGA, CUP, UEFA_EUROPA_CONFERENCE_LEAGUE }
-
-final leaguenameEnumValues = EnumValues({
-  "Bundesliga": LeaguenameEnum.BUNDESLIGA,
-  "Cup": LeaguenameEnum.CUP,
-  "UEFA Europa Conference League": LeaguenameEnum.UEFA_EUROPA_CONFERENCE_LEAGUE,
-});
-
-enum FixtureStatus { FT, NOT_STARTED, THE_1500 }
-
-final fixtureStatusValues = EnumValues({
-  "FT": FixtureStatus.FT,
-  "Not Started": FixtureStatus.NOT_STARTED,
-  "15:00": FixtureStatus.THE_1500,
-});
 
 class LeagueElement {
   final String? country;
@@ -406,8 +365,8 @@ class LeagueElement {
 }
 
 class Table {
-  final Country? filegroup;
-  final LeaguenameEnum? leaguename;
+  final String? filegroup;
+  final String? leaguename;
   final List<GroupElement> groups;
   final int? updatedFromFeedAt;
   final String? feedTimestamp;
@@ -433,8 +392,8 @@ class Table {
   });
 
   factory Table.fromJson(Map<String, dynamic> json) => Table(
-    filegroup: countryValues.map[json["filegroup"]],
-    leaguename: leaguenameEnumValues.map[json["leaguename"]],
+    filegroup: json["filegroup"],
+    leaguename: json["leaguename"],
     groups: json["groups"] == null
         ? []
         : List<GroupElement>.from(
@@ -455,8 +414,8 @@ class Table {
   );
 
   Map<String, dynamic> toJson() => {
-    "filegroup": countryValues.reverse[filegroup],
-    "leaguename": leaguenameEnumValues.reverse[leaguename],
+    "filegroup": filegroup,
+    "leaguename": leaguename,
     "groups": groups.isEmpty
         ? []
         : List<dynamic>.from(groups.map((x) => x.toJson())),
@@ -474,14 +433,14 @@ class Table {
 }
 
 class GroupElement {
-  final GroupEnum? group;
+  final String? group;
   final String? round;
   final String? stageid;
   final String? leaugeid;
   final String? season;
   final int? isCurrent;
-  final GroupEnum? league;
-  final Country? country;
+  final String? league;
+  final String? country;
   final List<Team> teams;
 
   GroupElement({
@@ -497,52 +456,45 @@ class GroupElement {
   });
 
   factory GroupElement.fromJson(Map<String, dynamic> json) => GroupElement(
-    group: groupEnumValues.map[json["group"]],
+    group: json["group"],
     round: json["round"],
     stageid: json["stageid"],
     leaugeid: json["leaugeid"],
     season: json["season"],
     isCurrent: json["is_current"],
-    league: groupEnumValues.map[json["league"]],
-    country: countryValues.map[json["country"]],
+    league: json["league"],
+    country: json["country"],
     teams: json["teams"] == null
         ? []
         : List<Team>.from(json["teams"].map((x) => Team.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "group": groupEnumValues.reverse[group],
+    "group": group,
     "round": round,
     "stageid": stageid,
     "leaugeid": leaugeid,
     "season": season,
     "is_current": isCurrent,
-    "league": groupEnumValues.reverse[league],
-    "country": countryValues.reverse[country],
+    "league": league,
+    "country": country,
     "teams": teams.isEmpty
         ? []
         : List<dynamic>.from(teams.map((x) => x.toJson())),
   };
 }
 
-enum GroupEnum { BUNDESLIGA, UEFA_CONFERENCE_LEAGUE }
-
-final groupEnumValues = EnumValues({
-  "Bundesliga": GroupEnum.BUNDESLIGA,
-  "UEFA Conference League": GroupEnum.UEFA_CONFERENCE_LEAGUE,
-});
-
 class Team {
   final dynamic idSw;
   final String? idGs;
-  final TeamStatus? status;
+  final String? status;
   final String? recentForm;
   final String? rank;
   final String? position;
   final String? team;
   final String? group;
   final String? round;
-  final GroupEnum? league;
+  final String? league;
   final dynamic season;
   final String? matchPoints;
   final String? totalWon;
@@ -552,8 +504,8 @@ class Team {
   final String? totalGoalsAgainst;
   final String? goalDifference;
   final String? points;
-  final Description? description;
-  final Cc? cc;
+  final String? description;
+  final String? cc;
   final String? matchPointsOrg;
   final String? orgFeedPoints;
   final String? orgPoints;
@@ -565,12 +517,12 @@ class Team {
   final String? totalLostOrg;
   final String? totalDrawOrg;
   final String? positionOrg;
-  final UpdatedFrom? updatedFrom;
+  final String? updatedFrom;
   final int? updatedFromFeed;
-  final Color? color;
+  final String? color;
   final int? colorIndex;
-  final ColorType? colorType;
-  final Description? descriptionV2;
+  final String? colorType;
+  final String? descriptionV2;
   final int? fromPreviousUsage;
 
   Team({
@@ -618,14 +570,14 @@ class Team {
   factory Team.fromJson(Map<String, dynamic> json) => Team(
     idSw: json["id_sw"],
     idGs: json["id_gs"],
-    status: teamStatusValues.map[json["status"]],
+    status: json["status"],
     recentForm: json["recentForm"],
     rank: json["rank"],
     position: json["position"],
     team: json["team"],
     group: json["group"],
     round: json["round"],
-    league: groupEnumValues.map[json["league"]],
+    league: json["league"],
     season: json["season"],
     matchPoints: json["matchPoints"],
     totalWon: json["totalWon"],
@@ -635,8 +587,8 @@ class Team {
     totalGoalsAgainst: json["totalGoalsAgainst"],
     goalDifference: json["goalDifference"],
     points: json["points"],
-    description: descriptionValues.map[json["description"]],
-    cc: ccValues.map[json["cc"]],
+    description: json["description"],
+    cc: json["cc"],
     matchPointsOrg: json["matchPoints_org"],
     orgFeedPoints: json["org_feed_points"],
     orgPoints: json["org_points"],
@@ -648,26 +600,26 @@ class Team {
     totalLostOrg: json["totalLost_org"],
     totalDrawOrg: json["totalDraw_org"],
     positionOrg: json["position_org"],
-    updatedFrom: updatedFromValues.map[json["updatedFrom"]],
+    updatedFrom: json["updatedFrom"],
     updatedFromFeed: json["updatedFromFeed"],
-    color: colorValues.map[json["color"]],
+    color: json["color"],
     colorIndex: json["colorIndex"],
-    colorType: colorTypeValues.map[json["colorType"]],
-    descriptionV2: descriptionValues.map[json["description_v2"]],
+    colorType: json["colorType"],
+    descriptionV2: json["description_v2"],
     fromPreviousUsage: json["fromPreviousUsage"],
   );
 
   Map<String, dynamic> toJson() => {
     "id_sw": idSw,
     "id_gs": idGs,
-    "status": teamStatusValues.reverse[status],
+    "status": status,
     "recentForm": recentForm,
     "rank": rank,
     "position": position,
     "team": team,
     "group": group,
     "round": round,
-    "league": groupEnumValues.reverse[league],
+    "league": league,
     "season": season,
     "matchPoints": matchPoints,
     "totalWon": totalWon,
@@ -677,8 +629,8 @@ class Team {
     "totalGoalsAgainst": totalGoalsAgainst,
     "goalDifference": goalDifference,
     "points": points,
-    "description": descriptionValues.reverse[description],
-    "cc": ccValues.reverse[cc],
+    "description": description,
+    "cc": cc,
     "matchPoints_org": matchPointsOrg,
     "org_feed_points": orgFeedPoints,
     "org_points": orgPoints,
@@ -690,59 +642,15 @@ class Team {
     "totalLost_org": totalLostOrg,
     "totalDraw_org": totalDrawOrg,
     "position_org": positionOrg,
-    "updatedFrom": updatedFromValues.reverse[updatedFrom],
+    "updatedFrom": updatedFrom,
     "updatedFromFeed": updatedFromFeed,
-    "color": colorValues.reverse[color],
+    "color": color,
     "colorIndex": colorIndex,
-    "colorType": colorTypeValues.reverse[colorType],
-    "description_v2": descriptionValues.reverse[descriptionV2],
+    "colorType": colorType,
+    "description_v2": descriptionV2,
     "fromPreviousUsage": fromPreviousUsage,
   };
 }
-
-enum Cc { EEEEEE }
-
-final ccValues = EnumValues({"#eeeeee": Cc.EEEEEE});
-
-enum Color { THE_57_DF6_A, THE_72_E4_B5 }
-
-final colorValues = EnumValues({
-  "#57df6a": Color.THE_57_DF6_A,
-  "#72e4b5": Color.THE_72_E4_B5,
-});
-
-enum ColorType { FIRST }
-
-final colorTypeValues = EnumValues({"first": ColorType.FIRST});
-
-enum Description {
-  BUNDESLIGA_RELEGATION_GROUP,
-  EMPTY,
-  PROMOTION_BUNDESLIGA_CHAMPIONSHIP_GROUP,
-  PROMOTION_CONFERENCE_LEAGUE_PLAY_OFFS_116_FINALS,
-  PROMOTION_CONFERENCE_LEAGUE_PLAY_OFFS_18_FINALS,
-  RELEGATION,
-}
-
-final descriptionValues = EnumValues({
-  "Bundesliga (Relegation Group: )": Description.BUNDESLIGA_RELEGATION_GROUP,
-  "": Description.EMPTY,
-  "Promotion - Bundesliga (Championship Group: )":
-      Description.PROMOTION_BUNDESLIGA_CHAMPIONSHIP_GROUP,
-  "Promotion - Conference League (Play Offs: 1/16-finals)":
-      Description.PROMOTION_CONFERENCE_LEAGUE_PLAY_OFFS_116_FINALS,
-  "Promotion - Conference League (Play Offs: 1/8-finals)":
-      Description.PROMOTION_CONFERENCE_LEAGUE_PLAY_OFFS_18_FINALS,
-  "Relegation": Description.RELEGATION,
-});
-
-enum TeamStatus { SAME }
-
-final teamStatusValues = EnumValues({"same": TeamStatus.SAME});
-
-enum UpdatedFrom { FEED }
-
-final updatedFromValues = EnumValues({"feed": UpdatedFrom.FEED});
 
 class GroupsInfo {
   final int? descriptionCount;
@@ -813,8 +721,8 @@ class Squad {
   final String? name;
   final String? number;
   final String? age;
-  final Position? position;
-  final Injured? injured;
+  final String? position;
+  final String? injured;
   final String? minutes;
   final String? appearences;
   final String? lineups;
@@ -910,8 +818,8 @@ class Squad {
     name: json["name"],
     number: json["number"],
     age: json["age"],
-    position: positionValues.map[json["position"]],
-    injured: injuredValues.map[json["injured"]],
+    position: json["position"],
+    injured: json["injured"],
     minutes: json["minutes"],
     appearences: json["appearences"],
     lineups: json["lineups"],
@@ -959,8 +867,8 @@ class Squad {
     "name": name,
     "number": number,
     "age": age,
-    "position": positionValues.reverse[position],
-    "injured": injuredValues.reverse[injured],
+    "position": position,
+    "injured": injured,
     "minutes": minutes,
     "appearences": appearences,
     "lineups": lineups,
@@ -1003,19 +911,6 @@ class Squad {
     "birthcountry": birthcountry,
   };
 }
-
-enum Injured { FALSE }
-
-final injuredValues = EnumValues({"False": Injured.FALSE});
-
-enum Position { A, D, G, M }
-
-final positionValues = EnumValues({
-  "A": Position.A,
-  "D": Position.D,
-  "G": Position.G,
-  "M": Position.M,
-});
 
 class Stats {
   final String? rank;
@@ -1167,26 +1062,27 @@ class Stats {
 
 class Transfers {
   final List<In> transfersIn;
-  final List<In> out;
+  final List<In> transferOut;
 
-  Transfers({this.transfersIn = const [], this.out = const []});
+  Transfers({this.transfersIn = const [], this.transferOut = const []});
 
-  factory Transfers.fromJson(Map<String, dynamic> json) => Transfers(
-    transfersIn: json["in"] == null
-        ? []
-        : List<In>.from(json["in"].map((x) => In.fromJson(x))),
-    out: json["out"] == null
-        ? []
-        : List<In>.from(json["out"].map((x) => In.fromJson(x))),
-  );
+factory Transfers.fromJson(Map<String, dynamic> json) => Transfers(
+  transfersIn: (json["in"] ?? json["In"]) == null
+      ? []
+      : List<In>.from((json["in"] ?? json["In"]).map((x) => In.fromJson(x))),
+  transferOut: (json["out"] ?? json["Out"]) == null
+      ? []
+      : List<In>.from((json["out"] ?? json["Out"]).map((x) => In.fromJson(x))),
+);
+
 
   Map<String, dynamic> toJson() => {
     "in": transfersIn.isEmpty
         ? []
         : List<dynamic>.from(transfersIn.map((x) => x.toJson())),
-    "out": out.isEmpty
+    "out": transferOut.isEmpty
         ? []
-        : List<dynamic>.from(out.map((x) => x.toJson())),
+        : List<dynamic>.from(transferOut.map((x) => x.toJson())),
   };
 }
 
@@ -1198,7 +1094,7 @@ class In {
   final String? position;
   final String? from;
   final String? teamid;
-  final Type? type;
+  final String? type;
   final String? to;
 
   In({
@@ -1221,7 +1117,7 @@ class In {
     position: json["position"],
     from: json["from"],
     teamid: json["teamid"],
-    type: typeValues.map[json["type"]],
+    type: json["type"],
     to: json["to"],
   );
 
@@ -1233,22 +1129,14 @@ class In {
     "position": position,
     "from": from,
     "teamid": teamid,
-    "type": typeValues.reverse[type],
+    "type": type,
     "to": to,
   };
 }
 
-enum Type { BACK_FROM_LOAN, LOAN, TRANSFER }
-
-final typeValues = EnumValues({
-  "Back from Loan": Type.BACK_FROM_LOAN,
-  "Loan": Type.LOAN,
-  "Transfer": Type.TRANSFER,
-});
-
 class Trophy {
   final String? country;
-  final LeaguenameEnum? league;
+  final String? league;
   final String? status;
   final String? count;
   final String? seasons;
@@ -1257,7 +1145,7 @@ class Trophy {
 
   factory Trophy.fromJson(Map<String, dynamic> json) => Trophy(
     country: json["country"],
-    league: leaguenameEnumValues.map[json["league"]],
+    league: json["league"],
     status: json["status"],
     count: json["count"],
     seasons: json["seasons"],
@@ -1265,21 +1153,9 @@ class Trophy {
 
   Map<String, dynamic> toJson() => {
     "country": country,
-    "league": leaguenameEnumValues.reverse[league],
+    "league": league,
     "status": status,
     "count": count,
     "seasons": seasons,
   };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

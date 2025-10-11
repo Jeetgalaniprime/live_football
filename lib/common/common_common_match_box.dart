@@ -30,11 +30,17 @@ class CommonMatchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 130.h,
       width: commonWidth,
       decoration: BoxDecoration(
         color: AppColors.boxColor,
         borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryColor,
+            blurRadius: 4.r,
+            offset: const Offset(0, 2), // Shadow position
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -51,36 +57,46 @@ class CommonMatchBox extends StatelessWidget {
             child: Center(
               child: Text(
                 title ?? '',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.whiteColor,
+                ),
               ),
             ),
           ),
           // Spacer(),
           SizedBox(height: 10.h),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
 
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 100.w,
-                child: Text(
-                  team1Name ?? '',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
+              Row(
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: Text(
+                      team1Name ?? '',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
-                ),
+
+                  SizedBox(
+                    height: 40.w,
+                    width: 40.w,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30.r),
+                      child: CommonNetworkImage(imageUrl: team1ImageUrl ?? ''),
+                    ),
+                  ),
+                ],
               ),
 
-              SizedBox(
-                height: 40.w,
-                width: 40.w,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30.r),
-                  child: CommonNetworkImage(imageUrl: team1ImageUrl ?? ''),
-                ),
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -108,24 +124,28 @@ class CommonMatchBox extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 40.w,
-                width: 40.w,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30.r),
-                  child: CommonNetworkImage(imageUrl: team2ImageUrl ?? ''),
-                ),
-              ),
-              SizedBox(
-                width: 100.w,
-                child: Text(
-                  team2Name ?? '',
-
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
+              Row(
+                children: [
+                  SizedBox(
+                    height: 40.w,
+                    width: 40.w,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30.r),
+                      child: CommonNetworkImage(imageUrl: team2ImageUrl ?? ''),
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    width: 100.w,
+                    child: Text(
+                      team2Name ?? '',
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ).paddingSymmetric(horizontal: 20.w),

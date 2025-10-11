@@ -66,7 +66,7 @@ class ApiService {
           );
           debugPrint("API URL: $uri");
           final res = await http.get(uri, headers: _mergeHeaders(headers));
-          debugPrint("API Response: ${res.body}");
+          // debugPrint("API Response: ${res.body}");
           final data = _parseResponse(res);
 
           await onSuccess?.call(data);
@@ -279,8 +279,6 @@ class ApiService {
         await requestFn();
         return;
       } catch (e) {
-
-
         if (attempt >= retries) {
           onFail?.call("Request failed after $retries retries: $e");
           return;

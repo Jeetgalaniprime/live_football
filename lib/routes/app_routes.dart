@@ -10,4 +10,5 @@ class AppRoutes {
   static const leaguesDetailsScreen = '/leaguesDetailsScreen';
   static const standingScreen = '/standingScreen';
   static const teamDetailsScreen = '/teamDetailsScreen';
+  static const playerDetailsScreen = '/playerDetailsScreen';
 }

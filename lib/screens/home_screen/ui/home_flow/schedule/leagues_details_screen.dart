@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
@@ -48,7 +47,7 @@ class _LeaguesDetailsScreenState extends State<LeaguesDetailsScreen> {
           elevation: 0,
           bottom: TabBar(
             indicatorColor: AppColors.primaryColor,
-            labelColor: AppColors.blackColor,
+            labelColor: AppColors.whiteColor,
             unselectedLabelColor: AppColors.greyColor,
             tabs: const [
               Tab(text: 'Schedule'),
@@ -56,12 +55,7 @@ class _LeaguesDetailsScreenState extends State<LeaguesDetailsScreen> {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            ScheduleScreen(),
-            StandingScreen(),
-          ],
-        ),
+        body: TabBarView(children: [ScheduleScreen(), StandingScreen()]),
       ),
     );
   }

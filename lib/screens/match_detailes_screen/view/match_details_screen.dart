@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/common/common_image.dart';
-import 'package:football_live/models/match_detailes_model.dart';
+import 'package:football_live/routes/app_routes.dart';
 import 'package:football_live/screens/match_detailes_screen/controller/match_detailes_controller.dart';
 import 'package:football_live/utils/app_assets.dart';
 import 'package:football_live/utils/app_colors.dart';
@@ -23,7 +23,11 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
     return Scaffold(
       appBar: CommonAppBar(
         title: item.leaguename ?? '',
-        titleTextStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w600,
+          color: AppColors.whiteColor,
+        ),
         centerTitle: false,
       ),
       body: Column(
@@ -48,11 +52,15 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
                           "https://static.holoduke.nl/footapi/images/teams_gs/${item.gsLocalteamid}_small.png",
                     ),
                     SizedBox(height: 15.h),
-                    Text(
-                      item.localteam ?? '',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
+                    SizedBox(
+                      width: 100.w,
+                      child: Text(
+                        item.localteam ?? '',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
                     ),
                   ],
@@ -64,6 +72,7 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
+                        color: AppColors.whiteColor,
                       ),
                     ),
                     SizedBox(height: 15.h),
@@ -72,6 +81,7 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
+                        color: AppColors.whiteColor,
                       ),
                     ),
                     SizedBox(height: 15.h),
@@ -80,6 +90,7 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ],
@@ -94,11 +105,15 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
                           "https://static.holoduke.nl/footapi/images/teams_gs/${item.gsVisitorteamid}_small.png",
                     ),
                     SizedBox(height: 15.h),
-                    Text(
-                      item.visitorteam ?? '',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
+                    SizedBox(
+                      width: 100.w,
+                      child: Text(
+                        item.visitorteam ?? '',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.whiteColor,
+                        ),
                       ),
                     ),
                   ],
@@ -118,8 +133,8 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
             child: TabBar(
               controller: controller.tabController,
 
-              labelColor: AppColors.blackColor,
-              unselectedLabelColor: AppColors.blackColor.withValues(alpha: .5),
+              labelColor: AppColors.whiteColor,
+              unselectedLabelColor: AppColors.greyColor.withValues(alpha: .5),
               labelStyle: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
@@ -139,7 +154,9 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
                 GetBuilder(
                   init: controller,
                   initState: (_) {
-                    controller.fetchMatchDetails(item.id ?? '');
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      controller.fetchMatchDetails(item.id ?? '');
+                    });
                   },
                   builder: (_) {
                     return _MatchInfo();
@@ -243,7 +260,17 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         ),
                       ),
                       SizedBox(width: 10.w),
-                      SvgView(AppAssets.football, height: 18.w, width: 18.w),
+                      data.events?[index].type == "yellowcard"
+                          ? SvgView(
+                              AppAssets.yellowCard,
+                              height: 18.w,
+                              width: 18.w,
+                            )
+                          : SvgView(
+                              AppAssets.football,
+                              height: 18.w,
+                              width: 18.w,
+                            ),
                       SizedBox(width: 10.w),
                       Text(
                         "${data.events?[index].minute ?? ''}`",
@@ -267,7 +294,18 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         ),
                       ),
                       SizedBox(width: 10.w),
-                      SvgView(AppAssets.football, height: 18.w, width: 18.w),
+
+                      data.events?[index].type == "yellowcard"
+                          ? SvgView(
+                              AppAssets.yellowCard,
+                              height: 18.w,
+                              width: 18.w,
+                            )
+                          : SvgView(
+                              AppAssets.football,
+                              height: 18.w,
+                              width: 18.w,
+                            ),
                       SizedBox(width: 10.w),
                       Text(
                         data.events?[index].player ?? '',
@@ -514,28 +552,36 @@ class _Lineups extends GetView<MatchDetailesController> {
                   final player = data.lineups?.localteam?[index];
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
-                    child: Row(
-                      children: [
-                        CommonNetworkImage(
-                          imageUrl:
-                              "http://static.holoduke.nl/footapi/images/playerimages/${player?.id ?? ''}.png",
-                          height: 50.w,
-                          width: 50.w,
-                          borderRadius: 25.w,
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(width: 8.w),
-                        Expanded(
-                          child: Text(
-                            player?.name ?? '',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(
+                          AppRoutes.playerDetailsScreen,
+                          arguments: player?.id,
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          CommonNetworkImage(
+                            imageUrl:
+                                "http://static.holoduke.nl/footapi/images/playerimages/${player?.id ?? ''}.png",
+                            height: 50.w,
+                            width: 50.w,
+                            borderRadius: 25.w,
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(width: 8.w),
+                          Expanded(
+                            child: Text(
+                              player?.name ?? '',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 }),
@@ -554,30 +600,38 @@ class _Lineups extends GetView<MatchDetailesController> {
                   final player = data.lineups?.visitorteam?[index];
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            player?.name ?? '',
-                            textAlign: TextAlign.end,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(
+                          AppRoutes.playerDetailsScreen,
+                          arguments: player?.id,
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              player?.name ?? '',
+                              textAlign: TextAlign.end,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 8.w),
-                        CommonNetworkImage(
-                          imageUrl:
-                              "http://static.holoduke.nl/footapi/images/playerimages/${player?.id ?? ''}.png",
-                          height: 50.w,
-                          width: 50.w,
-                          borderRadius: 25.w,
-                          fit: BoxFit.cover,
-                        ),
-                      ],
+                          SizedBox(width: 8.w),
+                          CommonNetworkImage(
+                            imageUrl:
+                                "http://static.holoduke.nl/footapi/images/playerimages/${player?.id ?? ''}.png",
+                            height: 50.w,
+                            width: 50.w,
+                            borderRadius: 25.w,
+                            fit: BoxFit.cover,
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }),
