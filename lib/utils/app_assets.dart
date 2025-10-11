@@ -1,4 +1,8 @@
 class AppAssets {
+  /// icons
+  static const String football = 'assets/icons/football.svg';
+
+  /// image
   static const String splashImage = 'assets/images/png/splash.png';
   static const String incomingTransferImage = 'assets/images/png/in.png';
   static const String outgoingTransferImage = 'assets/images/png/out.png';
