@@ -135,11 +135,20 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
 
               labelColor: AppColors.whiteColor,
               unselectedLabelColor: AppColors.greyColor.withValues(alpha: .5),
+              indicatorColor: AppColors.whiteColor,
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicatorPadding: EdgeInsets.symmetric(
+                vertical: 5,
+                horizontal: 5,
+              ),
               labelStyle: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
               ),
-              indicator: null,
+              indicator: BoxDecoration(
+                color: AppColors.whiteColor.withValues(alpha: .5),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
               tabs: [
                 Tab(text: "Match Info"),
                 Tab(text: "Lineups"),
@@ -199,6 +208,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                   SizedBox(height: 10.h, width: commonWidth),
                   Text(
                     data.venue ?? '',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
@@ -206,7 +216,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                   ),
                   SizedBox(height: 10.h, width: commonWidth),
                 ],
-              ),
+              ).paddingSymmetric(horizontal: 10.w, vertical: 10.h),
             ),
 
             SizedBox(height: 10.h, width: commonWidth),
@@ -534,9 +544,15 @@ class _Lineups extends GetView<MatchDetailesController> {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
       }
-
       final data = controller.matchDetailesData.value;
-
+      if (data.lineups?.localteam?.isEmpty ?? true) {
+        return Center(
+          child: Text(
+            'No Data Found..',
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
+          ),
+        );
+      }
       return SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         child: Row(
