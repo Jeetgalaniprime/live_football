@@ -84,7 +84,7 @@ class Matches {
   String? localteamOrg;
   String? visitorteamOrg;
   String? iw;
-  String? penalties;
+
   String? wasFinished;
   String? addedTimePeriod1;
   String? addedTimePeriod2;
@@ -117,7 +117,7 @@ class Matches {
     this.localteamOrg,
     this.visitorteamOrg,
     this.iw,
-    this.penalties,
+
     this.wasFinished,
     this.addedTimePeriod1,
     this.addedTimePeriod2,
@@ -151,7 +151,7 @@ class Matches {
     localteamOrg = json['localteam_org'] ?? '';
     visitorteamOrg = json['visitorteam_org'] ?? '';
     iw = json['iw'].toString();
-    penalties = json['penalties'].toString();
+
     wasFinished = json['wasFinished'].toString();
     addedTimePeriod1 = json['addedTime_period1'];
     addedTimePeriod2 = json['addedTime_period2'];
@@ -186,7 +186,7 @@ class Matches {
     data['localteam_org'] = this.localteamOrg;
     data['visitorteam_org'] = this.visitorteamOrg;
     data['iw'] = this.iw;
-    data['penalties'] = this.penalties;
+
     data['wasFinished'] = this.wasFinished;
     data['addedTime_period1'] = this.addedTimePeriod1;
     data['addedTime_period2'] = this.addedTimePeriod2;
