@@ -15,4 +15,5 @@ class ApiIds {
   static String getMatchDetails(String matchId) => '$matchId.json';
   static String getStanding(String country) => 'tables/$country.json';
   static String getTeamDetails(String teamIdGs) => 'team_gs/$teamIdGs.json';
+  static String getPlayer(String playerId) => 'players/$playerId.json';
 }

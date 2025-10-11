@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:football_live/models/feed_model.dart';
 import 'package:football_live/models/news_model.dart';
+import 'package:football_live/models/player_model.dart';
 import 'package:football_live/models/standing_model.dart';
 import 'package:football_live/models/team_details_model.dart';
 import 'package:football_live/service/api/api_ids.dart';
 import 'package:football_live/service/api/api_services.dart';
 import 'package:get/get.dart';
-
 import '../../../models/league_schedule_model.dart';
 
 class HomeScreenController extends GetxController
     with GetTickerProviderStateMixin {
-  TabController? tabController;
-
   RxList<News> newsList = <News>[].obs;
   RxList<FeedCountry> feedList = <FeedCountry>[].obs;
   RxList<LeagueScheduleModel> leagueSchedule = <LeagueScheduleModel>[].obs;
   RxBool isLoading = false.obs;
   Rxn<StandingModel> standing = Rxn<StandingModel>();
   Rxn<TeamDetailsModel> teamDetails = Rxn<TeamDetailsModel>();
+  Rxn<PlayerModel> player = Rxn<PlayerModel>();
 
   Future<void> fetchLeagueSchedule(String leagueKey) async {
     isLoading.value = true;
@@ -29,10 +28,7 @@ class HomeScreenController extends GetxController
       onSuccess: (data) {
         try {
           if (data is List) {
-            print("✅ API call success :: got ${data.length} items");
-            print("data type :: ${data.runtimeType}");
 
-            // Clear old list before adding new data
             leagueSchedule.clear();
 
             for (var item in data) {
@@ -148,7 +144,7 @@ class HomeScreenController extends GetxController
   void getTeamDetails(String teamIdGs) async {
     isLoading.value = true;
     await ApiService.getRequest(
-      ApiIds.getTeamDetails(teamIdGs),
+      ApiIds.getTeamDetails('7079'),
       baseUrl: ApiIds.baseUrl,
       onSuccess: (data) {
         try {
@@ -165,11 +161,31 @@ class HomeScreenController extends GetxController
       },
     );
   }
+  
+  void getPlayer(String playerId) async {
+    isLoading.value = true;
+    await ApiService.getRequest(
+      ApiIds.getPlayer(playerId),
+      baseUrl: ApiIds.baseUrl,
+      onSuccess: (data) {
+        try {
+          debugPrint('player: $data');
+          player.value = PlayerModel.fromJson(data);
+          isLoading.value = false;
+        } catch (e, st) {
+          isLoading.value = false;
+          debugPrint('Error: $e, $st');
+        }
+      },
+      onFail: (error) {
+        isLoading.value = false;
+      },
+    );
+  }
   @override
   void onInit() {
     getFeed();
     getNews();
-    tabController = TabController(length: 2, vsync: this);
     super.onInit();
   }
 }

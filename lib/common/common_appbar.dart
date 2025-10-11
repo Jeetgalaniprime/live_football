@@ -41,7 +41,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         style:
             titleTextStyle ??
             TextStyle(
-              color: AppColors.blackColor,
+              color: AppColors.whiteColor,
               fontSize: 20.sp,
               fontWeight: FontWeight.w600,
             ),
@@ -54,7 +54,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: AppColors.blackColor,
+                color: AppColors.whiteColor,
               ),
             )
           : null,

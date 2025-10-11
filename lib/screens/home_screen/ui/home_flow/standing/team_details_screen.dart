@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:football_live/common/common_appbar.dart';
-import 'package:football_live/common/common_loader.dart';
+import 'package:football_live/screens/home_screen/ui/home_flow/standing/squard_widget.dart';
+import 'package:football_live/screens/home_screen/ui/home_flow/standing/team_info_widget.dart';
+import 'package:football_live/screens/home_screen/ui/home_flow/standing/transfer_widget.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
-
 import '../../../controller/home_controller.dart';
 
 class TeamDetailsScreen extends StatefulWidget {
@@ -26,40 +27,33 @@ class _TeamDetailsScreenState extends State<TeamDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.bgColor,
-      body: Obx(
-        () => controller.isLoading.value
-            ? CommonLoader()
-            : DefaultTabController(
-                length: 3,
-                child: Scaffold(
-                  backgroundColor: AppColors.bgColor,
-                  appBar: CommonAppBar(
-                    title: 'Team Details',
-                    showBackButton: true,
-                    backgroundColor: AppColors.primaryColor,
-                    elevation: 0,
-                    bottom: TabBar(
-                      indicatorColor: AppColors.primaryColor,
-                      labelColor: AppColors.blackColor,
-                      unselectedLabelColor: AppColors.greyColor,
-                      tabs: const [
-                        Tab(text: 'Team Info'),
-                        Tab(text: 'Squad'),
-                        Tab(text: 'Transfer'),
-                      ],
-                    ),
-                  ),
-                  body: const TabBarView(
-                    children: [
-                      Center(child: Text('Team Info Content')),
-                      Center(child: Text('Squad Content')),
-                      Center(child: Text('Transfer Content')),
-                    ],
-                  ),
-                ),
-              ),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        backgroundColor: AppColors.bgColor,
+        appBar: CommonAppBar(
+          title: 'Team Details',
+          showBackButton: true,
+          backgroundColor: AppColors.primaryColor,
+          elevation: 0,
+          bottom: TabBar(
+            indicatorColor: AppColors.whiteColor,
+            labelColor: AppColors.whiteColor,
+            unselectedLabelColor: AppColors.greyColor,
+            tabs: const [
+              Tab(text: 'Team Info'),
+              Tab(text: 'Squad'),
+              Tab(text: 'Transfer'),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            TeamInfoWidget(),
+            SquardWidget(),
+            TransferWidget()
+          ],
+        ),
       ),
     );
   }

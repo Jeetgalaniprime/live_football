@@ -1,4 +1,5 @@
 import 'package:football_live/screens/home_screen/bindings/home_binding.dart';
+import 'package:football_live/screens/home_screen/ui/home_flow/player_details_screen.dart';
 import 'package:football_live/screens/home_screen/ui/home_screen.dart';
 import 'package:football_live/screens/home_screen/ui/home_flow/schedule/leagues_details_screen.dart';
 import 'package:football_live/screens/home_screen/ui/home_flow/schedule/leagues_screen.dart';
@@ -25,5 +26,6 @@ class AppPages {
     ),
     GetPage(name: AppRoutes.leaguesDetailsScreen, page: () => const LeaguesDetailsScreen()),
     GetPage(name: AppRoutes.teamDetailsScreen, page: () => const TeamDetailsScreen()),
+    GetPage(name: AppRoutes.playerDetailsScreen, page: () => const PlayerDetailsScreen()),
   ];
 }
