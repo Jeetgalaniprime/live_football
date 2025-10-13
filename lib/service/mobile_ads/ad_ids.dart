@@ -72,47 +72,72 @@ class AdIds {
         adIds = data.data != null && (data.data ?? []).isNotEmpty
             ? data.data?.first
             : null;
-        if (adIds != null) {
-          priorityOfAd.value = int.parse(adIds?.priorityOfAid ?? '0');
-          adManager.interstitialAdsClick.value = int.parse(
-            priorityOfAd.value == 0
-                ? adIds?.interClickBeForAid ?? '0'
-                : adIds?.affiliateClickAid ?? '0',
-          );
-          adManager.nativeAdsClick.value = int.parse(
-            adIds?.nativeClickBeforeAid ?? '0',
-          );
-          adManager.nativeVideoAdCount.value = int.parse(
-            adIds?.nativeadCount ?? '0',
-          );
+        // if (adIds != null) {
+        //   priorityOfAd.value = int.parse(adIds?.priorityOfAid ?? '0');
+        //   adManager.interstitialAdsClick.value = int.parse(
+        //     priorityOfAd.value == 0
+        //         ? adIds?.interClickBeForAid ?? '0'
+        //         : adIds?.affiliateClickAid ?? '0',
+        //   );
+        //   adManager.nativeAdsClick.value = int.parse(
+        //     adIds?.nativeClickBeforeAid ?? '0',
+        //   );
+        //   adManager.nativeVideoAdCount.value = int.parse(
+        //     adIds?.nativeadCount ?? '0',
+        //   );
 
-          appOpenIOS1 = adIds?.openAppSplash ?? '';
-          commonAppOpenIOS1 = adIds?.openAppCommon ?? '';
+        //   appOpenIOS1 = adIds?.openAppSplash ?? '';
+        //   commonAppOpenIOS1 = adIds?.openAppCommon ?? '';
 
-          interstitialIOS1 = adIds?.interstitialTags1 ?? '';
-          secondInterstitialIOS1 = adIds?.secondInterstitialTags2 ?? '';
-          interstitialIOS2 = adIds?.interstitialTags2 ?? '';
-          secondInterstitialIOS2 = adIds?.secondInterstitialTags2 ?? '';
+        //   interstitialIOS1 = adIds?.interstitialTags1 ?? '';
+        //   secondInterstitialIOS1 = adIds?.secondInterstitialTags2 ?? '';
+        //   interstitialIOS2 = adIds?.interstitialTags2 ?? '';
+        //   secondInterstitialIOS2 = adIds?.secondInterstitialTags2 ?? '';
 
-          nativeIOS1 = adIds?.nativeTags1 ?? '';
-          secondNativeIOS1 = adIds?.secondNativeTags1 ?? '';
-          nativeIOS2 = adIds?.nativeTags2 ?? '';
-          secondNativeIOS2 = adIds?.secondNativeTags2 ?? '';
-          nativeImageUrl1 = adIds?.nativeImageUrl1 ?? '';
-          nativeImageUrl2 = adIds?.nativeImageUrl2 ?? '';
+        //   nativeIOS1 = adIds?.nativeTags1 ?? '';
+        //   secondNativeIOS1 = adIds?.secondNativeTags1 ?? '';
+        //   nativeIOS2 = adIds?.nativeTags2 ?? '';
+        //   secondNativeIOS2 = adIds?.secondNativeTags2 ?? '';
+        //   nativeImageUrl1 = adIds?.nativeImageUrl1 ?? '';
+        //   nativeImageUrl2 = adIds?.nativeImageUrl2 ?? '';
 
-          qurekaIOS1 = adIds?.affiliateWebUrl1 ?? '';
-          qurekaIOS2 = adIds?.affiliateWebUrl2 ?? '';
-          qurekaIOS3 = adIds?.affiliateWebUrl3 ?? '';
-          qurekaIOS4 = adIds?.affiliateWebUrl4 ?? '';
-          qurekaIOS5 = adIds?.affiliateWebUrl5 ?? '';
+        //   qurekaIOS1 = adIds?.affiliateWebUrl1 ?? '';
+        //   qurekaIOS2 = adIds?.affiliateWebUrl2 ?? '';
+        //   qurekaIOS3 = adIds?.affiliateWebUrl3 ?? '';
+        //   qurekaIOS4 = adIds?.affiliateWebUrl4 ?? '';
+        //   qurekaIOS5 = adIds?.affiliateWebUrl5 ?? '';
 
-          countryAffiliateLink = adIds?.countryAffiliateLink ?? '';
+        //   countryAffiliateLink = adIds?.countryAffiliateLink ?? '';
 
-          privacyPolicy = adIds?.privacyPolicy ?? '';
-          termsAndConditions = adIds?.termsOfConditions ?? '';
-          showSocial.value = adIds?.showSocial ?? 'true';
-        }
+        //   privacyPolicy = adIds?.privacyPolicy ?? '';
+        //   termsAndConditions = adIds?.termsOfConditions ?? '';
+        //   showSocial.value = adIds?.showSocial ?? 'true';
+        // }
+        //
+        
+          appOpenIOS1 = 'ca-app-pub-3940256099942544/3419835294';
+          commonAppOpenIOS1 = 'ca-app-pub-3940256099942544/3419835294';
+
+          interstitialIOS1 = 'ca-app-pub-3940256099942544/4411468910';
+          secondInterstitialIOS1 = 'ca-app-pub-3940256099942544/4411468910';
+          interstitialIOS2 = 'ca-app-pub-3940256099942544/4411468910';
+          secondInterstitialIOS2 = 'ca-app-pub-3940256099942544/4411468910';
+
+          nativeIOS1 = 'ca-app-pub-3940256099942544/3986624511';
+          secondNativeIOS1 = 'ca-app-pub-3940256099942544/3986624511';
+          nativeIOS2 = 'ca-app-pub-3940256099942544/3986624511';
+          secondNativeIOS2 = 'ca-app-pub-3940256099942544/3986624511';
+
+          qurekaIOS1 = 'https://www.google.com';
+          qurekaIOS2 = 'https://www.google.com';
+          qurekaIOS3 = 'https://www.google.com';
+          qurekaIOS4 = 'https://www.google.com';
+          qurekaIOS5 = 'https://www.google.com';
+
+          countryAffiliateLink = 'https://www.google.com';
+
+          privacyPolicy = 'https://www.google.com/policies/privacy/';
+          termsAndConditions = 'https://www.google.com/policies/terms/';
       } else {
         debugPrint('Request failed with status: ${response.statusCode}.');
       }

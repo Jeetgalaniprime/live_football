@@ -5,9 +5,8 @@ class GradientButton: UIButton {
 
     private var gradientLayer: CAGradientLayer?
     
-    @IBInspectable var startColor: UIColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
-    @IBInspectable var endColor: UIColor   = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
-
+    @IBInspectable var startColor: UIColor = UIColor(red: 55/255, green: 85/255, blue: 107/255, alpha: 1.0) // lighter shade
+    @IBInspectable var endColor: UIColor   = UIColor(red: 39/255, green: 63/255, blue: 79/255, alpha: 1.0)  // #273F4F
 
     override init(frame: CGRect) {
         super.init(frame: frame)

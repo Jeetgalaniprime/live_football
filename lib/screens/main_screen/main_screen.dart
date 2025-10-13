@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_live/routes/app_routes.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_assets.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,7 @@ class MainScreen extends StatelessWidget {
                 },
                 child: Image.asset(AppAssets.pointTableCardImage)),
               SizedBox(height: 20.h),
+              adManager.showNativeAdsAd(AdType.nativeBig),
               InkWell(
                 onTap: (){
                   Get.toNamed(AppRoutes.stadiumScreen);
