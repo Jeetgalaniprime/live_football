@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:football_live/utils/app_assets.dart';
 import 'routes/app_pages.dart';
 import 'routes/app_routes.dart';
 import 'service/mobile_ads/ad_helper.dart';
@@ -18,7 +19,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-  
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp> {
       case AppLifecycleState.detached:
       case AppLifecycleState.resumed:
         if (adManager.isDismissedInterAd.isFalse) {
-          adManager.loadAppOpenAd(AdIds.appOpenFirst(true), true); 
+          adManager.loadAppOpenAd(AdIds.appOpenFirst(true), true);
         } else {
           adManager.isDismissedInterAd.value = false;
         }
@@ -62,17 +63,37 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return AnnotatedRegion(
+        return AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle(
             statusBarColor: AppColors.whiteColor,
             statusBarIconBrightness: Brightness.dark,
             statusBarBrightness: Brightness.dark,
           ),
-          child: GetMaterialApp(
-            // theme: ThemeData(fontFamily: 'IBMPlexSans'),
-            getPages: AppPages.appPages,
-            debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.mainScreen,
+          child: Directionality(
+            textDirection: TextDirection.ltr, // 👈 Required for Stack alignment
+            child: Stack(
+              children: [
+                // Background image
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(AppAssets.backgroundImage),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                // Main app content
+                GetMaterialApp(
+                  theme: ThemeData(
+                    fontFamily: 'Poppins',
+                    scaffoldBackgroundColor: Colors.transparent,
+                  ),
+                  getPages: AppPages.appPages,
+                  debugShowCheckedModeBanner: false,
+                  initialRoute: AppRoutes.splashScreen,
+                ),
+              ],
+            ),
           ),
         );
       },

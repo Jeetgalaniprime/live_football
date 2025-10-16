@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_live/common/common_image.dart';
 import 'package:football_live/routes/app_routes.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
 
@@ -18,10 +19,9 @@ class SquardWidget extends GetView<HomeScreenController> {
         final player = controller.teamDetails.value?.squad[index];
         return InkWell(
           onTap: () {
-            Get.toNamed(  
-              AppRoutes.playerDetailsScreen,
-              arguments: player?.id,
-            );
+            AdHelper().showInterstitialAdOnClickEvent(() {
+              Get.toNamed(AppRoutes.playerDetailsScreen, arguments: player?.id);
+            });
           },
           child: Card(
             elevation: 2,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_live/common/common_image.dart';
 import 'package:football_live/routes/app_routes.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
 
@@ -18,17 +19,19 @@ class NewsScreen extends GetView<HomeScreenController> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              Get.toNamed(
-                AppRoutes.newsDetails,
-                arguments: {
-                  'title': controller.newsList[index].title ?? '',
-                  'link': controller.newsList[index].link ?? '',
-                },
-              );
+              AdHelper().showInterstitialAdOnClickEvent(() {
+                Get.toNamed(
+                  AppRoutes.newsDetails,
+                  arguments: {
+                    'title': controller.newsList[index].title ?? '',
+                    'link': controller.newsList[index].link ?? '',
+                  },
+                );
+              });
             },
             child: Container(
               height: 100.h,
-              color: AppColors.whiteColor,
+              // color: AppColors.bgColor,
               child: Row(
                 children: [
                   CommonNetworkImage(
@@ -50,7 +53,7 @@ class NewsScreen extends GetView<HomeScreenController> {
                           style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.blackColor,
+                            color: AppColors.whiteColor,
                           ),
                         ),
                         SizedBox(height: 5.h),
@@ -61,7 +64,7 @@ class NewsScreen extends GetView<HomeScreenController> {
                           style: TextStyle(
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w400,
-                            color: AppColors.blackColor,
+                            color: AppColors.whiteColor,
                           ),
                         ),
                       ],
@@ -73,10 +76,14 @@ class NewsScreen extends GetView<HomeScreenController> {
           );
         },
         separatorBuilder: (context, index) {
-          return Divider(
-            height: 1,
-            color: AppColors.greyColor.withValues(alpha: 0.4),
-          );
+          if (index % 10 == 0) {
+            return adManager.showNativeAdsAd(AdType.nativeBig);
+          } else {
+            return Divider(
+              height: 1,
+              color: AppColors.greyColor.withValues(alpha: 0.4),
+            );
+          }
         },
         itemCount: controller.newsList.length,
       ),

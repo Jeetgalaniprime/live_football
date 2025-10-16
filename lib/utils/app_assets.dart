@@ -2,6 +2,12 @@ class AppAssets {
   /// icons
   static const String football = 'assets/icons/football.svg';
   static const String yellowCard = 'assets/icons/yellow_card.svg';
+  static const String stadium = 'assets/icons/studium.svg';
+  static const String ranking = 'assets/icons/ranking.svg';
+  static const String winners = 'assets/icons/winners.svg';
+  static const String pointTable = 'assets/icons/point_table.svg';
+  static const String score = 'assets/icons/score.svg';
+  static const String arrowRight = 'assets/icons/right_arrow.svg';
 
   /// image
   static const String splashImage = 'assets/images/png/splash.png';
@@ -27,6 +33,10 @@ class AppAssets {
   static const String scoreCardImage = 'assets/images/png/score_card.png';
   static const String stadiumCardImage = 'assets/images/png/stadium_card.png';
   static const String winnersCardImage = 'assets/images/png/winners_card.png';
+  static const String backgroundImage = 'assets/images/png/background.png';
+  static const String onboarding1Image = 'assets/images/png/onboarding_1.png';
+  static const String onboarding2Image = 'assets/images/png/onboarding_2.png';
+  static const String onboarding3Image = 'assets/images/png/onboarding_3.png';
 
   //Winners
   static const String winner1Image = 'assets/images/winners/ic_winner1.png';
@@ -69,4 +79,7 @@ class AppAssets {
 
   //Lottie
   static const String loadingAnimation = 'assets/lottie/loading.json';
+  static const String onboarding1Animation = 'assets/lottie/onboarding_1.json';
+  static const String onboarding2Animation = 'assets/lottie/onboarding_2.json';
+  static const String onboarding3Animation = 'assets/lottie/onboarding_3.json';
 }

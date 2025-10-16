@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/models/point_table_model.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_colors.dart';
 
 class PointTableScreen extends StatefulWidget {
@@ -58,16 +59,20 @@ class _PointTableScreenState extends State<PointTableScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
+      // backgroundColor: AppColors.bgColor,
+      bottomNavigationBar: adManager.showNativeAdsAd(AdType.nativeBig),
       appBar: CommonAppBar(title: 'Point Table'),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 3.w,vertical: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 10.h),
           child: Column(
             children: [
               Container(
                 height: 70.h,
-                decoration: BoxDecoration(color: AppColors.primaryColor),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: Row(
@@ -132,7 +137,10 @@ class _PointTableScreenState extends State<PointTableScreen> {
                   itemBuilder: (context, index) {
                     return Container(
                       height: 70.h,
-                      decoration: BoxDecoration(color: AppColors.primaryColor),
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         child: Row(

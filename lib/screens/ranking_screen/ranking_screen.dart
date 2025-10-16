@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/models/point_table_model.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_assets.dart';
 import 'package:football_live/utils/app_colors.dart';
 
@@ -79,7 +80,8 @@ class _RankingScreenState extends State<RankingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
+      bottomNavigationBar: adManager.showNativeAdsAd(AdType.nativeBig),
+      // backgroundColor: AppColors.bgColor,
       appBar: CommonAppBar(title: 'Ranking'),
       body: SafeArea(
         child: Padding(
@@ -88,7 +90,10 @@ class _RankingScreenState extends State<RankingScreen> {
             children: [
               Container(
                 height: 70.h,
-                decoration: BoxDecoration(color: AppColors.primaryColor),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: Row(
@@ -153,7 +158,10 @@ class _RankingScreenState extends State<RankingScreen> {
                   itemBuilder: (context, index) {
                     return Container(
                       height: 70.h,
-                      decoration: BoxDecoration(color: AppColors.primaryColor),
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         child: Row(
@@ -174,7 +182,10 @@ class _RankingScreenState extends State<RankingScreen> {
                             SizedBox(
                               width: 80.w,
                               height: 40.h,
-                              child: Image.asset(pointTableList[index].teamName,fit: BoxFit.fitHeight,),
+                              child: Image.asset(
+                                pointTableList[index].teamName,
+                                fit: BoxFit.fitHeight,
+                              ),
                             ),
                             SizedBox(
                               width: 50.w,

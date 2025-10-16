@@ -4,6 +4,7 @@ import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/common/common_image.dart';
 import 'package:football_live/routes/app_routes.dart';
 import 'package:football_live/screens/match_details_screen/controller/match_detailes_controller.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_assets.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:football_live/utils/common_widget.dart';
@@ -145,9 +146,10 @@ class MatchDetailsScreen extends GetView<MatchDetailesController> {
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
               ),
+              dividerColor: Colors.transparent,
               indicator: BoxDecoration(
                 color: AppColors.whiteColor.withValues(alpha: .5),
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(8.r),
               ),
               tabs: [
                 Tab(text: "Match Info"),
@@ -195,6 +197,11 @@ class _MatchInfo extends GetView<MatchDetailesController> {
           children: [
             SizedBox(height: 10.h, width: commonWidth),
             Card(
+              color: AppColors.primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              elevation: 0,
               child: Column(
                 children: [
                   SizedBox(height: 10.h, width: commonWidth),
@@ -203,6 +210,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
+                      color: AppColors.whiteColor,
                     ),
                   ),
                   SizedBox(height: 10.h, width: commonWidth),
@@ -212,6 +220,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
+                      color: AppColors.whiteColor,
                     ),
                   ),
                   SizedBox(height: 10.h, width: commonWidth),
@@ -226,7 +235,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                   child: Container(
                     height: 1.5,
                     width: commonWidth,
-                    color: AppColors.blackColor,
+                    color: AppColors.whiteColor,
                   ),
                 ),
                 SizedBox(width: 10.w),
@@ -235,6 +244,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
+                    color: AppColors.whiteColor,
                   ),
                 ),
                 SizedBox(width: 10.w),
@@ -242,7 +252,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                   child: Container(
                     height: 1.5,
                     width: commonWidth,
-                    color: AppColors.blackColor,
+                    color: AppColors.whiteColor,
                   ),
                 ),
               ],
@@ -267,6 +277,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
+                          color: AppColors.whiteColor,
                         ),
                       ),
                       SizedBox(width: 10.w),
@@ -287,6 +298,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
+                          color: AppColors.whiteColor,
                         ),
                       ),
                       Spacer(),
@@ -301,6 +313,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
+                          color: AppColors.whiteColor,
                         ),
                       ),
                       SizedBox(width: 10.w),
@@ -322,6 +335,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.sp,
+                          color: AppColors.whiteColor,
                         ),
                       ),
 
@@ -351,7 +365,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         child: Container(
                           height: 1.5,
                           width: commonWidth,
-                          color: AppColors.blackColor,
+                          color: AppColors.whiteColor,
                         ),
                       ),
                       SizedBox(width: 10.w),
@@ -359,6 +373,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         "STATISTICS",
                         style: TextStyle(
                           fontSize: 16.sp,
+                          color: AppColors.whiteColor,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -367,7 +382,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         child: Container(
                           height: 1.5,
                           width: commonWidth,
-                          color: AppColors.blackColor,
+                          color: AppColors.whiteColor,
                         ),
                       ),
                     ],
@@ -394,6 +409,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                                     '',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
+                                  color: AppColors.whiteColor,
                                   fontSize: 16.sp,
                                 ),
                               ),
@@ -406,6 +422,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                                     '',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
+                                  color: AppColors.whiteColor,
                                   fontSize: 16.sp,
                                 ),
                               ),
@@ -418,6 +435,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                                     '',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
+                                  color: AppColors.whiteColor,
                                   fontSize: 16.sp,
                                 ),
                               ),
@@ -439,7 +457,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         child: Container(
                           height: 1.5,
                           width: commonWidth,
-                          color: AppColors.blackColor,
+                          color: AppColors.whiteColor,
                         ),
                       ),
                       SizedBox(width: 10.w),
@@ -448,6 +466,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
+                          color: AppColors.whiteColor,
                         ),
                       ),
                       SizedBox(width: 10.w),
@@ -455,7 +474,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                         child: Container(
                           height: 1.5,
                           width: commonWidth,
-                          color: AppColors.blackColor,
+                          color: AppColors.whiteColor,
                         ),
                       ),
                     ],
@@ -464,6 +483,10 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                   SizedBox(height: 10.h, width: commonWidth),
 
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    color: AppColors.primaryColor,
                     child: Column(
                       children: [
                         Row(
@@ -472,6 +495,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                               (data.stats?.totalLocalteamWon ?? 0).toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
+                                color: AppColors.whiteColor,
                                 fontSize: 16.sp,
                               ),
                             ),
@@ -480,6 +504,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                               "WINS",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
+                                color: AppColors.whiteColor,
                                 fontSize: 16.sp,
                               ),
                             ),
@@ -488,6 +513,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                               (data.stats?.totalVisitorteamWon ?? 0).toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
+                                color: AppColors.whiteColor,
                                 fontSize: 16.sp,
                               ),
                             ),
@@ -501,6 +527,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                                   .toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
+                                color: AppColors.whiteColor,
                                 fontSize: 16.sp,
                               ),
                             ),
@@ -509,6 +536,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                               "Goals For",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
+                                color: AppColors.whiteColor,
                                 fontSize: 16.sp,
                               ),
                             ),
@@ -518,6 +546,7 @@ class _MatchInfo extends GetView<MatchDetailesController> {
                                   .toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
+                                color: AppColors.whiteColor,
                                 fontSize: 16.sp,
                               ),
                             ),
@@ -549,7 +578,11 @@ class _Lineups extends GetView<MatchDetailesController> {
         return Center(
           child: Text(
             'No Data Found..',
-            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
+              color: AppColors.whiteColor.withValues(alpha: .7),
+            ),
           ),
         );
       }
@@ -570,10 +603,12 @@ class _Lineups extends GetView<MatchDetailesController> {
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed(
-                          AppRoutes.playerDetailsScreen,
-                          arguments: player?.id,
-                        );
+                        AdHelper().showInterstitialAdOnClickEvent(() {
+                          Get.toNamed(
+                            AppRoutes.playerDetailsScreen,
+                            arguments: player?.id,
+                          );
+                        });
                       },
                       child: Row(
                         children: [
@@ -591,6 +626,7 @@ class _Lineups extends GetView<MatchDetailesController> {
                               player?.name ?? '',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
+                                color: AppColors.whiteColor,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -618,10 +654,12 @@ class _Lineups extends GetView<MatchDetailesController> {
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: GestureDetector(
                       onTap: () {
-                        Get.toNamed(
-                          AppRoutes.playerDetailsScreen,
-                          arguments: player?.id,
-                        );
+                        AdHelper().showInterstitialAdOnClickEvent(() {
+                          Get.toNamed(
+                            AppRoutes.playerDetailsScreen,
+                            arguments: player?.id,
+                          );
+                        });
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -633,6 +671,7 @@ class _Lineups extends GetView<MatchDetailesController> {
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 14.sp,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

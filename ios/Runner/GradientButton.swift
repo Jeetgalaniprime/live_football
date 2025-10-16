@@ -5,8 +5,12 @@ class GradientButton: UIButton {
 
     private var gradientLayer: CAGradientLayer?
     
-    @IBInspectable var startColor: UIColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
-    @IBInspectable var endColor: UIColor   = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
+    // Set both startColor and endColor to the new hex color "078905"
+    @IBInspectable var startColor: UIColor = UIColor(red: 7/255, green: 137/255, blue: 5/255, alpha: 1.0)
+    @IBInspectable var endColor: UIColor   = UIColor(red: 7/255, green: 137/255, blue: 5/255, alpha: 1.0)
+
+    // A new inspectable property for the corner radius
+    @IBInspectable var cornerRadiusValue: CGFloat = 8.0
 
 
     override init(frame: CGRect) {
@@ -31,6 +35,10 @@ class GradientButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         updateGradient()
+        
+        // Set the corner radius in layoutSubviews to ensure it updates correctly
+        layer.cornerRadius = cornerRadiusValue
+        gradientLayer?.cornerRadius = cornerRadiusValue
     }
 
     override var intrinsicContentSize: CGSize {
@@ -50,9 +58,8 @@ class GradientButton: UIButton {
 
       gradientLayer?.frame = bounds
       gradientLayer?.colors = [startColor.cgColor, endColor.cgColor]
-      gradientLayer?.cornerRadius = bounds.height / 2
+      // Corner radius is now set in layoutSubviews
 
-      layer.cornerRadius = bounds.height / 2
       layer.masksToBounds = true
       backgroundColor = .clear
     }

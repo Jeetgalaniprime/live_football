@@ -32,13 +32,13 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
+      // backgroundColor: AppColors.bgColor,
       appBar: CommonAppBar(title: 'Player Details'),
       body: Obx(() {
         final player = controller.player.value;
         if (player == null) return CommonLoader();
 
-        final double statCellWidth =  34.w;
+        final double statCellWidth = 34.w;
         final double statCellHeight = 34.h;
         final double seasonCellWidth = 80.w;
 
@@ -63,31 +63,52 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
                       children: [
                         Text(
                           'Age: ${player.age ?? "-"}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                         Text(
                           'Nationality: ${player.nationality ?? "-"}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                         Text(
                           'Birth Place: ${player.birthplace ?? "-"}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                         Text(
                           'Position: ${player.position ?? "-"}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                         Text(
                           'Team: ${player.team ?? "-"}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                         Text(
                           'Weight: ${player.weight ?? "-"}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                         Text(
                           'Height: ${player.height ?? "-"}',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.whiteColor,
+                          ),
                         ),
                       ],
                     ),
@@ -147,6 +168,9 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
                                     row.season ?? '',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
+                                      color: AppColors.whiteColor.withValues(
+                                        alpha: .8,
+                                      ),
                                     ),
                                   ),
                                   CommonNetworkImage(
@@ -208,6 +232,7 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
                             '${row.name ?? ""} ${row.league ?? ""}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              color: AppColors.whiteColor.withValues(alpha: .8),
                               fontSize: 14,
                             ),
                           ),
@@ -232,7 +257,11 @@ class _PlayerDetailsScreenState extends State<PlayerDetailsScreen> {
     child: Text(
       text,
       textAlign: TextAlign.center,
-      style: TextStyle(fontWeight: FontWeight.bold),
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: AppColors.whiteColor.withValues(alpha: .8),
+        fontSize: 14,
+      ),
     ),
   );
 }

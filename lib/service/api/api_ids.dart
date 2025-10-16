@@ -1,6 +1,6 @@
 class ApiIds {
   static String adIds =
-      'http://primesoftech.in/ios_downloader/getarray_iosvideodownloader1.php';
+      'http://primesoftech.in/ios_crickettv/array_iosfotballlivetv.php';
   static String getCountry = 'https://ipapi.co/country';
   static String baseUrl = 'http://static.holoduke.nl/footapi/';
   static String baseUrl1 = 'https://static.holoduke.nl/footapi/fixtures/';

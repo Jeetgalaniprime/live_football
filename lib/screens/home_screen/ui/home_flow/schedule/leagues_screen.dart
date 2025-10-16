@@ -4,6 +4,7 @@ import 'package:football_live/common/common_appbar.dart';
 import 'package:football_live/common/common_image.dart';
 import 'package:football_live/routes/app_routes.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
 
@@ -13,14 +14,14 @@ class LeaguesScreen extends GetView<HomeScreenController> {
   @override
   Widget build(BuildContext context) {
     final dynamic argIndex = Get.arguments != null
-        ? Get.arguments['index']
+        ? Get.arguments['index'] ?? ''
         : null;
     final int feedIndex = argIndex is int
         ? argIndex
         : int.tryParse(argIndex?.toString() ?? '0') ?? 0;
 
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
+      // backgroundColor: AppColors.bgColor,
       appBar: CommonAppBar(title: controller.feedList[feedIndex].country ?? ''),
       body: controller.feedList[feedIndex].leagues.isNotEmpty
           ? ListView.separated(
@@ -29,55 +30,49 @@ class LeaguesScreen extends GetView<HomeScreenController> {
                 final item = controller.feedList[feedIndex].leagues[index];
                 return InkWell(
                   onTap: () {
-                    Get.toNamed(
-                      AppRoutes.leaguesDetailsScreen,
-                      arguments: {'index': feedIndex, 'leagueIndex': index},
-                    );
+                    AdHelper().showInterstitialAdOnClickEvent(() {
+                      Get.toNamed(
+                        AppRoutes.leaguesDetailsScreen,
+                        arguments: {'index': feedIndex, 'leagueIndex': index},
+                      );
+                    });
                   },
                   child: Container(
                     height: 100.h,
                     decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(10.r),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.greyColor.withValues(alpha: 0.5),
-                          spreadRadius: 2,
-                          blurRadius: 5,
+                          color: AppColors.whiteColor.withValues(alpha: .7),
+                        ),
+                        BoxShadow(
+                          color: AppColors.primaryColor,
+                          spreadRadius: -1.0,
+                          blurRadius: 10.0,
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
                       children: [
-                        Container(
-                          height: double.maxFinite,
-                          width: 120.w,
-                          decoration: BoxDecoration(
-                            color: AppColors.greyColor.withValues(alpha: 0.2),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                            ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.w,
+                            vertical: 15.h,
                           ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 20.w,
-                              vertical: 15.h,
-                            ),
-                            child: CommonNetworkImage(
-                              imageUrl:
-                                  'https://static.holoduke.nl/footapi/images/flags/${(controller.feedList[feedIndex].country ?? '').replaceAll(' ', '-').toLowerCase()}.png',
-                              fit: BoxFit.contain,
-                            ),
+                          child: CommonNetworkImage(
+                            imageUrl:
+                                'https://static.holoduke.nl/footapi/images/flags/${(controller.feedList[feedIndex].country ?? '').replaceAll(' ', '-').toLowerCase()}.png',
+                            fit: BoxFit.contain,
                           ),
                         ),
-                        SizedBox(width: 10.w),
+                        // SizedBox(width: 10.w),
                         Expanded(
                           child: Text(
                             item.leagueName ?? '',
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
+                              color: AppColors.whiteColor,
                             ),
                           ),
                         ),
@@ -87,7 +82,11 @@ class LeaguesScreen extends GetView<HomeScreenController> {
                 );
               },
               separatorBuilder: (context, index) {
-                return SizedBox(height: 20.h);
+                if (index % 10 == 0) {
+                  return adManager.showNativeAdsAd(AdType.nativeBig);
+                } else {
+                  return SizedBox(height: 20.h);
+                }
               },
               itemCount: controller.feedList[feedIndex].leagues.length,
             )

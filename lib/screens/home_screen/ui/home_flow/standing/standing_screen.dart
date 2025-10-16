@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:football_live/common/common_image.dart';
 import 'package:football_live/routes/app_routes.dart';
 import 'package:football_live/screens/home_screen/controller/home_controller.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,6 @@ class StandingScreen extends StatefulWidget {
 
 class StandingScreenState extends State<StandingScreen> {
   final controller = Get.find<HomeScreenController>();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class StandingScreenState extends State<StandingScreen> {
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
               TableRow(
-                decoration: const BoxDecoration(color: AppColors.bgColor),
+                decoration: const BoxDecoration(color: AppColors.primaryColor),
                 children: [
                   const SizedBox(),
                   SizedBox(
@@ -57,7 +57,7 @@ class StandingScreenState extends State<StandingScreen> {
                       'Team',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.blackColor.withValues(alpha: 0.8),
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -68,7 +68,7 @@ class StandingScreenState extends State<StandingScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.blackColor.withValues(alpha: 0.8),
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -79,7 +79,7 @@ class StandingScreenState extends State<StandingScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.blackColor.withValues(alpha: 0.8),
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -90,7 +90,7 @@ class StandingScreenState extends State<StandingScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.blackColor.withValues(alpha: 0.8),
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -101,7 +101,7 @@ class StandingScreenState extends State<StandingScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.blackColor.withValues(alpha: 0.8),
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -112,7 +112,7 @@ class StandingScreenState extends State<StandingScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.blackColor.withValues(alpha: 0.8),
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -123,7 +123,7 @@ class StandingScreenState extends State<StandingScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.blackColor.withValues(alpha: 0.8),
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -133,7 +133,7 @@ class StandingScreenState extends State<StandingScreen> {
               ...group.teams.map(
                 (team) => TableRow(
                   decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
+                    // color: AppColors.whiteColor,
                     border: Border(
                       bottom: BorderSide(
                         color: AppColors.greyColor.withValues(alpha: 0.8),
@@ -143,10 +143,12 @@ class StandingScreenState extends State<StandingScreen> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.toNamed(
-                          AppRoutes.teamDetailsScreen,
-                          arguments: team.idGs,
-                        );
+                        AdHelper().showInterstitialAdOnClickEvent(() {
+                          Get.toNamed(
+                            AppRoutes.teamDetailsScreen,
+                            arguments: team.idGs,
+                          );
+                        });
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(
@@ -216,7 +218,9 @@ class StandingScreenState extends State<StandingScreen> {
     String? teamIdGs,
   }) => InkWell(
     onTap: () {
-      Get.toNamed(AppRoutes.teamDetailsScreen, arguments: teamIdGs);
+      AdHelper().showInterstitialAdOnClickEvent(() {
+        Get.toNamed(AppRoutes.teamDetailsScreen, arguments: teamIdGs);
+      });
     },
     child: SizedBox(
       width: (width ?? 20).w,
@@ -225,7 +229,7 @@ class StandingScreenState extends State<StandingScreen> {
         textAlign: alignment ?? TextAlign.center,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: AppColors.blackColor.withValues(alpha: 0.8),
+          color: AppColors.whiteColor.withValues(alpha: 0.8),
         ),
       ),
     ),

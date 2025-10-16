@@ -10,6 +10,7 @@ import 'package:football_live/screens/match_details_screen/view/match_details_sc
 import 'package:football_live/screens/news_screen/news_details.dart';
 import 'package:football_live/screens/point_table_screen/point_table_screen.dart';
 import 'package:football_live/screens/ranking_screen/ranking_screen.dart';
+import 'package:football_live/screens/splash_screen/onboarding_screen/onboarding_screen.dart';
 import 'package:football_live/screens/stadium_screen/stadium_screen.dart';
 import 'package:football_live/screens/winners_screen/winners_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -68,5 +69,6 @@ class AppPages {
       name: AppRoutes.teamDetailsScreen,
       page: () => const TeamDetailsScreen(),
     ),
+    GetPage(name: AppRoutes.onboardingScreen, page: () => OnboardingScreen()),
   ];
 }

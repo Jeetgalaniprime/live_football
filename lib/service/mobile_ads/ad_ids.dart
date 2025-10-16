@@ -62,7 +62,7 @@ class AdIds {
       final url = Uri.parse(ApiIds.adIds);
 
       final Map<String, dynamic> bodyParams = {
-        "packagename": "com.xvideodownloader.videoplayer",
+        "packagename": "com.football.livefootballscore",
         "country": countryCode,
       };
 

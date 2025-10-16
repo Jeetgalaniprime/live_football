@@ -4,6 +4,7 @@ import 'package:football_live/screens/home_screen/controller/home_controller.dar
 import 'package:football_live/screens/home_screen/ui/home_flow/feed_screen.dart';
 import 'package:football_live/screens/livescore/view/livescore_view.dart';
 import 'package:football_live/screens/news_screen/news_screen.dart';
+import 'package:football_live/service/mobile_ads/ad_helper.dart';
 import 'package:football_live/utils/app_colors.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,11 @@ class HomeScreen extends GetView<HomeScreenController> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: AppColors.bgColor,
+        bottomNavigationBar: Container(
+          color: Colors.transparent,
+          child: adManager.showNativeAdsAd(AdType.nativeSmall),
+        ),
+        // backgroundColor: AppColors.bgColor,
         appBar: CommonAppBar(
           title: 'Live Football',
           backgroundColor: AppColors.primaryColor,
@@ -24,6 +29,7 @@ class HomeScreen extends GetView<HomeScreenController> {
             indicatorColor: AppColors.primaryColor,
             labelColor: AppColors.whiteColor,
             unselectedLabelColor: AppColors.greyColor,
+            indicatorSize: TabBarIndicatorSize.tab,
             tabs: const [
               Tab(text: 'Home'),
               Tab(text: 'News'),

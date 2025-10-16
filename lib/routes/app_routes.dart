@@ -14,4 +14,5 @@ class AppRoutes {
   static const stadiumScreen = '/stadiumScreen';
   static const pointTableScreen = '/pointTableScreen';
   static const rankingScreen = '/rankingScreen';
+  static const onboardingScreen = '/onboardingScreen';
 }

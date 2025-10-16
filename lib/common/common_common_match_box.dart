@@ -32,7 +32,7 @@ class CommonMatchBox extends StatelessWidget {
     return Container(
       width: commonWidth,
       decoration: BoxDecoration(
-        color: AppColors.boxColor,
+        color: AppColors.boxColor.withValues(alpha: .8),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
